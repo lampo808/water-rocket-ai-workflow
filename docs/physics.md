@@ -4,8 +4,8 @@ A PET bottle, partly filled with water and pressurised with air, is
 launched vertically, nozzle down. This document derives a model of its
 flight in three phases, states the assumptions, and reports the apogee
 as a function of the water fill. The model is implemented in
-`code/rocket.py`; the figures are produced by `code/fig_trajectory.py`
-and `code/fig_apogee_vs_fill.py`.
+`code/rocket.py`; the figures are produced by `code/fig_trajectory.py`,
+`code/fig_apogee_vs_fill.py` and `code/fig_inertial_head.py`.
 
 Labels used throughout:
 
@@ -19,8 +19,12 @@ Labels used throughout:
 ## 1. Rocket, ambient and notation
 
 The parameters are those of the rocket of Barrio-Perotti et al. (2010),
-section 5, measured by the authors. The drag coefficient was measured on
-the same rocket by free fall (Barrio-Perotti et al. 2009).
+section 5, measured by the authors. The drag coefficient was measured
+by free fall on a 2 L water rocket with $m^* = 133 \pm 1$ g and
+$D = 106.0$ mm (Barrio-Perotti et al. 2009). Mass and diameter equal
+those of the 2010 rocket; neither paper states that it is the same
+rocket (own inference that the value applies). Barrio-Perotti 2010
+used $C_D = 0.36$ in its own model (p. 1141).
 
 | Symbol | Meaning | Value | Source |
 |---|---|---|---|
@@ -59,8 +63,12 @@ $$F_D = \tfrac12 \rho_a C_D A_b\, v|v| \tag{D1}$$
 
 The air expands while it pushes the water out. Heat diffusion in the
 gas during an ejection time $\tau \approx 0.1$ s reaches a depth
-$\delta_h \approx \sqrt{\chi\tau} \approx 0.4$ mm, small compared with
-the bottle radius (Gommes 2010, eq. 1). The expansion is therefore
+$\delta_h \approx \sqrt{\chi\tau}$. Gommes (2010, eq. 1) uses
+$\chi = 0.014$ cm$^2$/s and obtains $\delta_h = 0.4$ mm. Own inference:
+this $\chi$ is low for air, whose thermal diffusivity at 295 K is about
+0.22 cm$^2$/s at 1 bar and 0.07 cm$^2$/s at 3 bar (textbook,
+$\chi \propto 1/p$); these give $\delta_h = 0.8$ to 1.5 mm. Either
+value is small compared with the bottle radius, 53 mm. The expansion is therefore
 modelled without heat exchange with the walls, as a polytropic process:
 
 $$p = p_0\left(\frac{V_0}{V}\right)^{n} \tag{W1}$$
@@ -71,8 +79,9 @@ during the expansion releases heat and lowers the effective exponent.
 Gommes (2010, eq. 6) gives an empirical fit,
 $\beta = 1.15 + 0.25\exp(-36\,P_V/P_i)$. Romanelli et al. (2013,
 Table I) measured 1.17 to 1.22 in a stationary bottle; these values lie
-0.05 to 0.06 below their own theoretical prediction in every row
-(contested). Own inference: with the saturation pressure of water at
+0.05 to 0.06 below their own theoretical prediction in every row.
+The authors call the agreement "very good"; reading the offset as a
+disagreement is an own inference (contested point). Own inference: with the saturation pressure of water at
 22 °C (2.64 kPa, textbook) and $p_0 = 3.02$ bar, the Gommes fit gives
 $\beta = 1.33$. The baseline here is $n = 1.4$; $n = 1.2$ is run as a
 sensitivity case (figure 2).
@@ -83,12 +92,31 @@ Quasi-steady Bernoulli along a streamline from the water surface in the
 bottle (velocity $u_e A_n/A_b$ by continuity) to the nozzle exit
 (velocity $u_e$, pressure $p_a$), relative to the bottle:
 
-$$u_e = \sqrt{\frac{2\,p}{\rho_w\left[1 - (A_n/A_b)^2\right]}} \tag{W2}$$
+$$u_e = \sqrt{\frac{2\,(p - p_a)}{\rho_w\left[1 - (A_n/A_b)^2\right]}} \tag{W2}$$
 
-The area correction
-changes $u_e$ by 0.1 % for this rocket. The same relation, with or
-without the correction, is used by Fischer et al. (2020, eq. 7),
-Urieli (2013, eq. 3) and Ding et al. (2025, eq. 10).
+The driving term is the gauge pressure $p - p_a$. The area correction
+changes $u_e$ by 0.1 % for this rocket. The same relation is used by
+Fischer et al. (2020, eq. 7, correction given unnumbered on p. 5) and
+Urieli (2013, eq. 3, without the correction). Ding et al. (2025,
+eq. 10) use it with the density of a two-phase mixture in place of
+$\rho_w$.
+
+Sensitivity case (P2 of the physics review). In the frame of the
+rocket, accelerating at $a$, the water column of height $h$ above the
+nozzle adds an inertial head $\rho_w (g + a) h$ to the driving
+pressure:
+
+$$u_e = \sqrt{\frac{2\,\left[p - p_a + \rho_w (g + a) h\right]}{\rho_w\left[1 - (A_n/A_b)^2\right]}}, \qquad h = \frac{V_b - V}{A_b} \tag{W2h}$$
+
+The column is taken as a cylinder of section $A_b$; the neck of the
+bottle is ignored (own approximation). Since the thrust depends on $a$
+through (W2h), the momentum balance (W6) is linear in $a$ and is solved
+for $a$:
+
+$$a = \frac{c\,[p - p_a + \rho_w g h] - F_D - m g}{m - c\,\rho_w h}, \qquad c = \frac{2 A_n}{1 - (A_n/A_b)^2} \tag{W6h}$$
+
+With (W2h) the water phase ends when the water is exhausted or when the
+bracket in (W2h) reaches zero. Results in section 6.3.
 
 The air volume grows as the water leaves:
 
@@ -110,7 +138,7 @@ Newton's law for a variable-mass body, with thrust, drag and weight:
 
 $$m\frac{dv}{dt} = F_T - F_D - m g \tag{W6}$$
 
-(established; Fischer 2020, eq. 10; Urieli 2013, eq. 10). Before lift-off
+(established; Fischer 2020, eq. 10; Urieli 2013, page 3, eq. 10). Before lift-off
 the pad holds the rocket: $dv/dt = 0$ while the right side of (W6) is
 negative at $z = 0$.
 
@@ -139,8 +167,11 @@ $$T = \frac{p}{\rho R} \tag{A2}$$
 
 The flow through the convergent nozzle is treated as quasi-steady and
 isentropic from the bottle state $(p, T)$, which is taken as the
-stagnation state (established, textbook compressible flow; the same
-approach as Barrio-Perotti 2010, section 4.2). The flow is choked while
+stagnation state (established, textbook compressible flow).
+Barrio-Perotti 2010 (section 4.2) also model the air phase as
+compressible flow through a convergent nozzle, with unsteady terms
+kept; the choked-flow relations (A3) and (A4) and the pressure term in
+(A7) are textbook, not taken from that paper. The flow is choked while
 
 $$\frac{p_a}{p} \le \left(\frac{2}{\gamma+1}\right)^{\gamma/(\gamma-1)} = 0.528 \tag{A3}$$
 
@@ -177,8 +208,8 @@ solution. The height gained from burnout velocity $v_1$ is
 
 $$h_c = \frac{1}{2\psi}\ln\!\left(1 + \frac{\psi v_1^2}{g}\right), \qquad \psi = \frac{\rho_a C_D A_b}{2 m_1} \tag{B2}$$
 
-(established; Fischer 2020, eq. 35). It is used as a check of the
-numerical integration.
+(established; Fischer 2020, eq. 35, there with the empty mass in
+place of $m_1$). It is used as a check of the numerical integration.
 
 ## 5. Numerical method
 
@@ -186,10 +217,12 @@ Each phase is integrated with `scipy.integrate.solve_ivp` (RK45,
 relative tolerance $10^{-9}$ to $10^{-10}$, maximum step 1 ms in the
 water phase, 0.1 ms in the air phase, 10 ms in the ballistic phase).
 Phase ends are terminal events. The final state of one phase is the
-initial state of the next.
+initial state of the next. The code stops with an error if the water
+phase ends without one of its end events, and returns a flight on the
+pad when $p_0 \le p_a$.
 
 Check: for $f = 0.25$, $p_g = 2$ bar, the integrated coast height and
-(B2) both give 36.55 m.
+(B2) both give 25.22 m.
 
 ## 6. Results
 
@@ -201,14 +234,14 @@ Figure 1: $f = 0.25$ (0.5 L of water), $p_g = 2$ bar, $n = 1.4$.
 
 | Quantity | Value |
 |---|---|
-| peak thrust (at $t = 0$) | 219.7 N |
-| initial acceleration | 34.1 $g$ |
-| end of water phase | 62.3 ms, 32.3 m/s, 0.82 m |
+| peak thrust (at $t = 0$) | 145.5 N |
+| initial acceleration | 22.3 $g$ |
+| end of water phase | 82.2 ms, 23.9 m/s, 0.85 m |
 | pressure at end of water phase | 2.02 bar (absolute) |
-| end of air phase | 83.8 ms, 34.9 m/s, 1.56 m |
-| apogee | 38.1 m at 2.60 s |
+| end of air phase | 103.7 ms, 26.6 m/s, 1.41 m |
+| apogee | 26.6 m at 2.25 s |
 
-At the end of the water phase the thrust drops from 147 N to 56 N
+At the end of the water phase the thrust drops from 73 N to 56 N
 (figure 1, third panel). The thrust changes from a water jet (W5) to a
 choked air jet (A7) at the same bottle pressure.
 
@@ -217,15 +250,16 @@ water volume and pressure, launched from a 45° ramp (own inference; the
 launch conditions differ, so the comparison is of order of magnitude):
 
 - Pressure during the water phase: 3 to 2 bar absolute in both.
-- Velocity at the end of the water phase: 26.7 m/s there, 32.3 m/s
-  here. At the end of the air phase: 30.7 m/s there, 34.9 m/s here.
-- Gain in the air phase: about 15 % there, 8 % here.
-- Initial acceleration: slightly above 70 $g$ there, 34 $g$ here. Their
+- Velocity at the end of the water phase: 26.7 m/s there, 23.9 m/s
+  here. At the end of the air phase: 30.7 m/s there, 26.6 m/s here.
+- Gain in the air phase: about 15 % there, 11.5 % here.
+- Initial acceleration: slightly above 70 $g$ there, 22 $g$ here. Their
   model keeps the inertia of the water in the bottle (their eqs. 5, 6,
   19, 20); the quasi-steady model (W2) does not. Kagan et al., as
-  reported by Gommes (2010), measured about 100 $g$ on a 2 L bottle.
-  Launch conditions of that measurement are not in the note
-  (`sources/gommes2010more.md`). The difference is discussed in section 7.
+  reported by Gommes (2010, p. 236), measured about 100 $g$ on a 2 L
+  bottle. Gommes gives their launch pressures, 3.4 and 6.8 bar (gauge
+  or absolute not stated), but not which launch gave 100 $g$. The
+  difference is discussed in section 7.
 
 ### 6.2 Apogee versus fill fraction
 
@@ -238,27 +272,25 @@ Optimum fill (own inference, model result):
 
 | $p_g$ (bar) | $n$ | $f_{opt}$ | water (L) | apogee (m) |
 |---|---|---|---|---|
-| 1 | 1.4 | 0.38 | 0.76 | 29.8 |
-| 1 | 1.2 | 0.43 | 0.86 | 31.8 |
-| 2 | 1.4 | 0.39 | 0.78 | 40.7 |
-| 2 | 1.2 | 0.41 | 0.82 | 43.3 |
-| 3 | 1.4 | 0.36 | 0.72 | 50.6 |
-| 3 | 1.2 | 0.38 | 0.76 | 53.8 |
-| 5 | 1.4 | 0.33 | 0.66 | 67.4 |
-| 5 | 1.2 | 0.34 | 0.68 | 71.4 |
+| 1 | 1.4 | 0.22 | 0.44 | 11.3 |
+| 1 | 1.2 | 0.24 | 0.48 | 12.7 |
+| 2 | 1.4 | 0.27 | 0.54 | 26.7 |
+| 2 | 1.2 | 0.29 | 0.58 | 29.3 |
+| 3 | 1.4 | 0.28 | 0.56 | 39.9 |
+| 3 | 1.2 | 0.30 | 0.60 | 43.4 |
+| 5 | 1.4 | 0.28 | 0.56 | 60.6 |
+| 5 | 1.2 | 0.30 | 0.60 | 65.0 |
 
 Observations (own inference):
 
-- The optimum lies between 0.33 and 0.43. Above 2 bar it moves down
-  with pressure.
-- The curves are flat near the optimum. At 2 bar, $f$ from 0.22 to 0.54
+- The optimum lies between 0.22 and 0.30 and moves up with pressure.
+- The curves are flat near the optimum. At 2 bar, $f$ from 0.17 to 0.38
   gives apogees within 10 % of the maximum (own inference, same sweep).
-- A lower exponent raises the apogee by 6 % to 7 % and the optimum by
-  0.01 to 0.05. With $n = 1.2$ the pressure falls more slowly with
-  volume, so the air does more work.
-- Each curve drops steeply at $f^*$ (W7), the onset of overfilling: the
-  pressure reaches $p_a$ before the water is gone. At 1 bar the optimum
-  lies at $f^*$.
+- A lower exponent raises the apogee by 7 % (5 bar) to 12 % (1 bar)
+  and the optimum by 0.02. With $n = 1.2$ the pressure falls more slowly with volume, so
+  the air does more work.
+- The bend in each curve near $f^*$ (W7) marks the onset of
+  overfilling: the pressure reaches $p_a$ before the water is gone.
 - With no water ($f = 0$) the rocket still flies on air alone: 2.8 m at
   2 bar.
 
@@ -267,33 +299,62 @@ Comparison with the sources (trend only):
 - Barrio-Perotti 2010 measured the maximum horizontal range at
   0.5 to 0.6 L of water for 2 bar gauge on a 45° ramp (their figure 10);
   their model gives an optimum of 0.5 to 0.6 L for 1 to 5 bar (figure
-  14). The optimum for apogee here, 0.66 to 0.86 L, is above that range.
-  Range and apogee are different targets, so a different optimum is
-  expected; the comparison is a check of trend, not a validation.
+  14). The optimum for apogee here, 0.44 to 0.60 L, is in the same range.
+  Range and apogee are different targets; the agreement is a check of
+  trend, not a validation.
 - Ding et al. 2025 report a simulated optimum water volume ratio of
-  0.498 for a 2.13 L rocket at 0.75 MPa with a 1 cm nozzle. Their dry
-  mass and drag coefficient are not stated (`sources/ding2025dynamics.md`),
-  so the difference from 0.33 cannot be traced to a parameter. Both are
-  model results.
+  0.498 for a 2.13 L rocket at 0.75 MPa with a 1 cm nozzle. The rocket
+  differs from the one here, their dry mass and drag coefficient are not
+  stated, and gauge or absolute pressure is not stated. No numerical
+  comparison is made. Both are model results.
+
+### 6.3 Inertial head (sensitivity)
+
+Figure 3: apogee vs fill fraction with (W2) (solid) and with the
+inertial head (W2h) (dashed), $n = 1.4$.
+
+![Figure 3](figures/fig_inertial_head.png)
+
+| $p_g$ (bar) | $f_{opt}$, (W2) | apogee (m), (W2) | $f_{opt}$, (W2h) | apogee (m), (W2h) | change |
+|---|---|---|---|---|---|
+| 1 | 0.22 | 11.3 | 0.22 | 11.7 | +3.8 % |
+| 2 | 0.27 | 26.7 | 0.27 | 27.5 | +3.0 % |
+| 3 | 0.28 | 39.9 | 0.29 | 40.9 | +2.4 % |
+| 5 | 0.28 | 60.6 | 0.29 | 61.7 | +1.7 % |
+
+For $f = 0.25$, 2 bar: the head adds 13.8 kPa at launch, 7 % of the
+gauge pressure. Peak thrust 155.5 N instead of 145.5 N; burnout velocity
+27.1 m/s instead of 26.6 m/s; apogee 27.4 m instead of 26.6 m.
+
+Observations (own inference): the head raises the apogee by less than
+4 % and moves the optimum by at most 0.01. Its relative effect falls
+with pressure, since the head does not scale with $p - p_a$. The
+conclusions of section 6.2 do not change. The unsteady term of limit 1
+is not included in this estimate.
 
 ## 7. Assumptions and limits
 
 1. **Quasi-steady water flow (contested).** (W2) neglects the unsteady
    term and the inertial head of the water column. Gommes (2010,
-   section II B) estimates both to be of the same order as the pressure
-   term at the start of the thrust. Barrio-Perotti (2010) keep the
-   inertia of the confined water and obtain an initial acceleration
-   about twice that of this model (section 6.1). The effect on
-   apogee is not quantified here. Open.
+   section II B, p. 239) finds the unsteady term comparable to the
+   kinetic term, and the apparent-gravity head comparable to the
+   pressure term. The inertial head is estimated here as a sensitivity
+   case (W2h): at launch ($f = 0.25$, 2 bar) about 14 kPa, 7 % of the
+   driving pressure; it raises the apogee by 1.7 % to 3.8 % (section
+   6.3). The unsteady term is not modelled. Barrio-Perotti (2010) keep
+   the inertia of the confined water and obtain an initial acceleration
+   about three times that of this model (section 6.1). Its effect on
+   apogee is Open.
 2. **Polytropic exponent.** $n$ is a parameter, not derived. The
    measured values come from a stationary bottle with an ejection time
    of 0.64 to 0.88 s (Romanelli 2013), not from a flying rocket.
 3. **No heat exchange, air at ambient temperature at launch.** Heating
    by the pump is ignored.
-4. **Nozzle.** Discharge coefficient 1, no losses, no launch tube.
+4. **Nozzle.** Discharge coefficient 1 (assumption, no source), no
+   losses, no launch tube.
 5. **Transition from water to air.** The switch is instantaneous. A
    two-phase mixture leaves the nozzle at the transition in a real
-   launch; it is not modelled.
+   launch (own inference); it is not modelled.
 6. **Air-phase nozzle flow** uses the isentropic relations with
    $\gamma = 1.4$ while the bottle gas follows exponent $n$. For
    $n = 1.4$ the two are consistent; for $n = 1.2$ they are not.
@@ -302,13 +363,16 @@ Comparison with the sources (trend only):
 8. **One-dimensional vertical flight.** No wind, no rotation, no
    tilt. Buoyancy of the rocket is neglected.
 9. **Constant drag coefficient.** $C_D = 0.345$ was measured for
-   $10^3 < Re < 2\times10^5$ on the empty rocket falling nose down
-   (Barrio-Perotti 2009). At 34.9 m/s, $Re \approx 2.5\times10^5$ (own
-   inference, $\nu = 1.5\times10^{-5}$ m$^2$ s$^{-1}$): above that
-   range.
+   $10^3 < Re < 2\times10^5$ on the empty rocket (Barrio-Perotti
+   2009). The fall orientation is not stated; the sketch (their fig. 2)
+   and the height measured from the base of the bottle suggest nose down
+   (own inference). At 26.6 m/s, $Re \approx 1.9\times10^5$ (own
+   inference, $\nu = 1.5\times10^{-5}$ m$^2$ s$^{-1}$): at the upper
+   end of that range.
 10. **Not validated.** The model is not compared with measured apogees
-    or measured thrust curves. No source read in full gives thrust
-    versus time for a flying rocket.
+    or measured thrust curves. Thorncroft et al. (2009) and Watanabe
+    et al. (2003) report thrust-stand measurements; their full texts
+    were not read.
 
 ## References
 
@@ -337,6 +401,19 @@ Comparison with the sources (trend only):
 - Romanelli A, Bove I, González Madina F 2013. Air expansion in a water
   rocket. Am. J. Phys. 81, 762-766. https://doi.org/10.1119/1.4811116
   (`sources/romanelli2013air.md`; read in the arXiv v1 version)
-- Urieli I 2013. Water Rocket Analysis, lecture notes.
-  https://people.ohio.edu/urieli/thermo/property_tables/gas/adiabatic/rocket/analysis2.html
+- Kagan D, Buchholtz L, Klein L 1995. Soda-bottle water rockets. Phys.
+  Teach. 33, 150-157. https://doi.org/10.1119/1.2344175
+  (`sources/kagan1995soda.md`; cited as reported in Gommes 2010, full
+  text not read)
+- Thorncroft G E, Ridgely J R, Pascual C C 2009. Hydrodynamics and
+  thrust characteristics of a water-propelled rocket. Int. J. Mech. Eng.
+  Educ. 37, 241-261. https://doi.org/10.7227/ijmee.37.3.9
+  (`sources/thorncroft2009hydrodynamics.md`; abstract only)
+- Urieli I 2013. Water Rocket Analysis, lecture notes, pages 2 and 3.
+  https://people.ohio.edu/urieli/thermo/property_tables/gas/adiabatic/rocket/analysis2.html ;
+  https://people.ohio.edu/urieli/thermo/property_tables/gas/adiabatic/rocket/analysis3.html
   (`sources/urieli2013water.md`)
+- Watanabe R, Tomita N, Takemae T 2003. Thrust characteristics of water
+  rocket and their improvement. J. Jpn. Soc. Aeronaut. Space Sci. 51,
+  314-320 (in Japanese). https://doi.org/10.2322/jjsass.51.314
+  (`sources/watanabe2003thrust.md`; English abstract only)
