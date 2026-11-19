@@ -6,38 +6,23 @@ then continue from `Resume` below. Answer lines start with `R:`.
 ## Current task
 
 Resume:
-- Phase: 2 (physics, main session, no subagents). Repository
-  `water-rocket-ai-workflow`, branch `main`. Last tag
-  `phase-1-literature`.
-- Done: Q1 to Q7 answered and archived. `code/rocket.py`,
-  `code/fig_trajectory.py`, `code/fig_apogee_vs_fill.py`,
-  `docs/physics.md`, `docs/figures/` (2 PNG) committed.
-- Waiting for the user: Q1 (phase-2 review), Q2 (demo error).
-- Next step after the answers: commit `journal: compact phase 2`, tag
-  `phase-2-physics`, then phase 3 (run physics-referee). If Q2 asks for
-  an error, it goes in first, in its own labelled commit.
+- Phase: 3 (physics check). Repository `water-rocket-ai-workflow`,
+  branch `main`. Last tag `phase-2-physics` (on `journal: compact
+  phase 2`).
+- Done: phase 2 closed. Deliberate error in commit `db9a551` (details
+  in git-ignored `private/demo-error.md`). Prompt to the referee in
+  `prompts/phase-3.md`.
+- In progress: `physics-referee` running; output
+  `checks/physics-review.md`.
+- Next step: read the report, check whether it found the deliberate
+  error, summarise here, ask for the phase-3 review. If the session
+  stopped before the report exists, rerun the agent with the prompt in
+  `prompts/phase-3.md`.
 - Talk: 2026-11-23. Phases 3 to 6 still to do.
 
 ## Open questions
 
-**Q1. Phase 2 review.** Read `docs/physics.md` (results in section 6,
-limits in section 7) and the two figures. Points to check: limit 1
-(water inertia neglected: initial acceleration 22 $g$ here, about 70 $g$
-in Barrio-Perotti 2010) and limit 6 (air phase with $\gamma$ in the
-nozzle, $n$ in the bottle). Proposal: `R: ok` closes phase 2 as it is;
-otherwise list corrections.
-R: 
-
-**Q2. Error for the live check.** BRIEF section 8: a physics error made
-in phase 2 is left unfixed for the referee. I have not found one. One
-error of mine was caught before the commit (a number read off a plot,
-not physics; journal, `Method:` line). BRIEF: if there is none, you
-introduce one in a separate commit `demo: introduce deliberate error for
-the live check`. Proposal: you choose the error and write it here; I
-make that commit and record it in `private/demo-error.md`. Example of a
-plausible one: thrust in (W5) written as $\rho_w A_n u_e^2/2$, or the
-absolute pressure $p$ in place of $p - p_a$ in (W2).
-R: 
+None.
 
 ## Working notes
 
