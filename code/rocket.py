@@ -95,8 +95,7 @@ def water_phase(r, p0, V0, n, m_air, t_span=(0.0, 5.0)):
         return p0 * (V0 / V) ** n                         # eq. (W1)
 
     def u_exit(V):
-        dp = max(pressure(V) - r.p_a, 0.0)
-        return np.sqrt(2.0 * dp / (RHO_W * k_area))        # eq. (W2)
+        return np.sqrt(2.0 * pressure(V) / (RHO_W * k_area))  # eq. (W2)
 
     def rhs(t, y):
         z, v, V = y
