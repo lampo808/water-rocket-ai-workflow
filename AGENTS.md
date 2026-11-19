@@ -42,6 +42,12 @@ terminal.
 
 - Sections, in this order: `## Current task`, `## Open questions`,
   `## Working notes`. Keep it short: a snapshot of the current state.
+- Resume block: `live.md` opens with a fixed line telling a new session
+  what to read, and `## Current task` opens with a `Resume:` list (phase,
+  last commit or tag, what is done, next step, what waits for the user).
+  Update it at every turn that changes the state. Test: in a new session,
+  with any harness, the prompt "read live.md" must be enough to restore
+  the context and continue.
 - Every turn writes to the chat and to `live.md`. The chat reply is terse:
   what was done, what needs the user's attention. `live.md` carries the
   fuller version: context, derivations, numbers, questions.
@@ -50,8 +56,13 @@ terminal.
 - The user answers on a new line starting with `R:` directly below the
   question. Some questions may stay unanswered.
 - For each answered question: act on the answer, record the decision in
-  `journal/history.md`, then remove the question and its answer from
-  `live.md`. Leave unanswered questions in place and do not act on them.
+  `journal/history.md`, copy the question and its `R:` answer verbatim to
+  `prompts/phase-N.md` (section `Questions and answers`), then remove both
+  from `live.md`. Leave unanswered questions in place and do not act on
+  them. Redact private data (local paths, names of third parties) in the
+  copy and mark the redaction.
+- An `R:` line not under a question is a note from the user: act on it,
+  record it in the journal, archive it in `prompts/phase-N.md`, remove it.
 - Invariant: `live.md` contains only open questions and current work; the
   journal contains everything already decided. A commit can be made at any
   moment without extra cleanup.
