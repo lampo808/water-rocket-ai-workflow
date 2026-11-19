@@ -92,3 +92,23 @@ Method: the resume test passed. A new session started with the prompt
 Method: the main session checks agent output that is cheap to check
 (DOIs on Crossref, PDF type) before presenting it. Content checks are
 left to the agent of phase 4.
+
+Review answers (phase 1, round 1):
+
+- Q1: the 13 sources from lit-scout accepted as they are.
+- Q2: CC BY-NC-ND copies not downloaded; rule of phase 0 kept, URLs
+  linked in the notes.
+- Q3: Ding et al. 2025 PDF downloaded by the user. Note written by the
+  main session from the full text: `sources/ding2025dynamics.md`. PDF
+  renamed from the publisher file name to the source key. 14 sources in
+  total.
+- Q4: `qi2026research` kept as a note; not cited in `docs/` for any value.
+- Q5: in phase 2 the optimal fill for apogee is a model result, labelled
+  own inference, compared with Barrio-Perotti 2010 (range, 45 degree ramp)
+  as a trend check only. Ding 2025 gives a simulated optimum (water volume
+  ratio 0.498, 2.13 L, 0.75 MPa); it is a model result too, usable as a
+  comparison, not as a measurement.
+
+Method: a source the agent could not fetch (403) was downloaded by the
+user in a browser. The division of work: the agent finds and verifies,
+the user supplies access.
