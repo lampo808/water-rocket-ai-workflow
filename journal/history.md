@@ -218,34 +218,34 @@ presented as fact ("same rocket"). The user had accepted it in a
 question because the question stated it as fact. A proposal must label
 its own inferences, or the user's `R: ok` ratifies them unseen.
 
-## Phase 5 (revision), 2026-11-19, session 3
+## Phase 5 (revision), 2026-11-19, sessions 3 and 4 (compacted)
 
-- Fix list of phase 4 Q2 applied (12 items; item 13 no change). Code:
-  (W2) restored, inertial-head sensitivity (W2h, W6h), guards. Docs:
-  section 6.3, citations corrected, own inferences labelled. Sources:
+Main session only. Fix list of phase 4 Q2 applied. One review round in
+`live.md`; questions and answers archived in `prompts/phase-5.md`.
+
+Decisions in force:
+
+- Fixes 1 to 12 applied; item 13 no change. Code (`d89c081`): (W2)
+  restored to $p - p_a$; inertial-head sensitivity (W2h), (W6h); guards
+  on the water phase. Docs (`b3eb98a`): section 6.3 and figure 3,
+  citations corrected, own inferences labelled. Sources (`473f8ad`):
   Urieli page 3 URL.
-- Document restored from the correct phase-2 version (`6f96f51`) and
-  then edited, not reverted by hand number by number. Reason: the
-  phase-2 numbers were from script output; the rerun reproduced them.
+- Document restored from the correct phase-2 version (`6f96f51`), then
+  edited. Reason: the rerun reproduced the phase-2 numbers.
 - Inertial head: apogee +1.7 % to +3.8 %, optimum shift at most 0.01.
   Conclusions unchanged. The unsteady term stays Open.
-- Phase 6 content asked in `live.md` (BRIEF: confirm before drafting).
+- `method/` content (phase 6): the six files of BRIEF section 8, plus
+  the demo outcome in `method/agents.md`; link from `README.md` to
+  `method/README.md`; "(to be written)" markers removed.
+- User note: phases 1 to 6 were fast-forwarded with minimal checks
+  (mostly plain `R: ok`) to finish before the talk. In a real project
+  the user would check more, direct more and answer with nuance. Stated
+  in `README.md` and `method/limits.md`.
+- Phase 5 approved by the user, tag `phase-5-revision`.
 
 Method: rerunning the corrected model reproduced the phase-2 numbers to
 the last digit printed. The numbers in `docs/` are a function of the
 code, so restoring the code restores the results.
-
-## Phase 5 (revision), 2026-11-19, session 4
-
-- Q1: phase 5 approved by the user (`R: ok`).
-- Q2: `method/` content accepted as proposed: the six files of BRIEF
-  section 8, plus the demo outcome in `method/agents.md`; link from
-  `README.md` to `method/README.md`; "(to be written)" markers removed.
-- User note in the Q2 answer: phases 1 to 6 were fast-forwarded with
-  minimal checks (mostly plain `R: ok`) to finish before the talk. In a
-  real project the user would check more, direct more and answer with
-  nuance. To be stated in `README.md` and `method/limits.md`.
-
 Method: most proposals in this repository were accepted with `R: ok`.
 This measures the time available, not the quality of the proposals. The
 `R:` channel supports nuanced answers; this run used little of it.
