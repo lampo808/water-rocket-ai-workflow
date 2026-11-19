@@ -55,6 +55,9 @@ terminal.
   needed to answer it and a proposed answer.
 - The user answers on a new line starting with `R:` directly below the
   question. Some questions may stay unanswered.
+- The agent writes an empty `R: ` line below every question it asks; the
+  user types the answer after it. An `R:` line with nothing after the
+  colon is not an answer: the question stays open.
 - For each answered question: act on the answer, record the decision in
   `journal/history.md`, copy the question and its `R:` answer verbatim to
   `prompts/phase-N.md` (section `Questions and answers`), then remove both
@@ -160,7 +163,8 @@ Two parts of this repository are specific to Claude Code:
   tools, instructions).
 - `.claude/settings.json` and `.claude/hooks/live-reminder.sh`: a hook
   that, at every user prompt, reminds the agent to re-read `live.md` and
-  reports how many `R:` lines it contains.
+  reports how many `R:` lines it contains with an answer after the
+  colon (empty `R:` lines are counted apart).
 
 If you are not Claude Code and `journal/history.md` has no `Method:` line
 recording a port to your harness:

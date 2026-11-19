@@ -4,8 +4,10 @@
 # "re-read live.md at every turn" (AGENTS.md section 1) is enforced by the
 # harness and not left to the model.
 #
-# It counts the lines of live.md that start with "R:" (answers from the
-# user). It does not parse them: the agent still has to re-read the file.
+# It counts the lines of live.md that start with "R:" and have text after
+# the colon (answers from the user), and separately the empty "R:" lines
+# the agent prepares below each question (AGENTS.md section 3). It does
+# not parse the answers: the agent still has to re-read the file.
 
 LIVE="${CLAUDE_PROJECT_DIR:-.}/live.md"
 
@@ -15,7 +17,8 @@ if [ ! -f "$LIVE" ]; then
 fi
 
 # grep -c prints 0 and exits with status 1 when nothing matches.
-N=$(grep -c '^R:' "$LIVE" || true)
+N=$(grep -c '^R:[[:space:]]*[^[:space:]]' "$LIVE" || true)
+E=$(grep -c '^R:[[:space:]]*$' "$LIVE" || true)
 
-echo "Reminder (hook): re-read live.md before acting. It contains $N line(s) starting with R:."
+echo "Reminder (hook): re-read live.md before acting. It contains $N answered R: line(s) and $E empty R: line(s)."
 exit 0
