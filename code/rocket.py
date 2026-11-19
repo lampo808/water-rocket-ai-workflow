@@ -79,46 +79,72 @@ def _on_pad(z, v, a):
 
 # --- Phase 1: water thrust -------------------------------------------------
 
-def water_phase(r, p0, V0, n, m_air, t_span=(0.0, 5.0)):
+def water_phase(r, p0, V0, n, m_air, head=False, t_span=(0.0, 5.0)):
     """Integrate the water phase.
 
     State y = [z, v, V], V = air volume in the bottle, m^3.
-    Ends when the water is exhausted (V = V_b) or the air pressure has
-    dropped to ambient with water left (V = V_end < V_b).
+    Ends when the water is exhausted (V = V_b) or the driving pressure
+    has dropped to zero with water left.
+
+    head=False: driving pressure p - p_a (eq. W2).
+    head=True:  sensitivity case, driving pressure
+                p - p_a + rho_w (g + a) h (eq. W2h), with the water
+                column height h = (V_b - V)/A_b (cylindrical bottle).
     """
     k_area = 1.0 - (r.A_n / r.A_b) ** 2      # area-ratio factor of eq. (W2)
-    # Air volume at which p = p_a (eq. W1 inverted).
-    V_pa = V0 * (p0 / r.p_a) ** (1.0 / n)
-    V_end = min(r.V_b, V_pa)
 
     def pressure(V):
         return p0 * (V0 / V) ** n                         # eq. (W1)
 
-    def u_exit(V):
-        return np.sqrt(2.0 * pressure(V) / (RHO_W * k_area))  # eq. (W2)
+    def balance(y):
+        """Return (driving pressure Pa, acceleration m/s^2, thrust N).
 
-    def rhs(t, y):
+        Thrust F = rho_w A_n u_e^2 = 2 A_n dp / k_area (eqs. W2, W5).
+        With the head, dp depends on a; the balance (W6) is linear in a
+        and is solved for a explicitly (eq. W6h).
+        """
         z, v, V = y
-        u = u_exit(V)
         m = r.m_b + m_air + RHO_W * (r.V_b - V)            # eq. (W4)
-        thrust = RHO_W * r.A_n * u**2                      # eq. (W5)
-        a = (thrust - r.drag(v)) / m - G                   # eq. (W6)
+        h = (r.V_b - V) / r.A_b if head else 0.0           # column, m
+        c = 2.0 * r.A_n / k_area                           # F = c * dp
+        dp0 = pressure(V) - r.p_a + RHO_W * G * h          # dp at a = 0
+        # (W6): m a = c (dp0 + rho_w a h) - F_D - m g
+        a = (c * dp0 - r.drag(v) - m * G) / (m - c * RHO_W * h)
         if _on_pad(z, v, a):
             a = 0.0
-        return [v, a, r.A_n * u]                           # eq. (W3)
+        dp = dp0 + RHO_W * a * h
+        if dp <= 0.0:                    # no outflow: jet stopped
+            dp = 0.0
+            a = (-r.drag(v) - m * G) / m
+            if _on_pad(z, v, a):
+                a = 0.0
+        return dp, a, c * dp
 
-    def end(t, y):
-        return y[2] - V_end * (1.0 - 1e-9)
-    end.terminal, end.direction = True, 1
+    def rhs(t, y):
+        dp, a, _ = balance(y)
+        u = np.sqrt(2.0 * dp / (RHO_W * k_area))           # eq. (W2)
+        return [y[1], a, r.A_n * u]                        # eq. (W3)
 
-    sol = solve_ivp(rhs, t_span, [0.0, 0.0, V0], events=end,
-                    rtol=1e-9, atol=[1e-9, 1e-9, 1e-12], max_step=1e-3,
-                    dense_output=False)
+    def empty(t, y):                     # water exhausted
+        return y[2] - r.V_b * (1.0 - 1e-9)
+    empty.terminal, empty.direction = True, 1
+
+    def stalled(t, y):                   # driving pressure reaches zero
+        return balance(y)[0] - 1e-6 * r.p_a
+    stalled.terminal, stalled.direction = True, -1
+
+    sol = solve_ivp(rhs, t_span, [0.0, 0.0, V0], events=[empty, stalled],
+                    rtol=1e-9, atol=[1e-9, 1e-9, 1e-12], max_step=1e-3)
+    if sol.status != 1:                  # guard: an end event must fire
+        raise RuntimeError("water phase: no end event reached")
     V = sol.y[2]
     p = pressure(V)
-    thrust = np.array([RHO_W * r.A_n * u_exit(Vi) ** 2 for Vi in V])
+    thrust = np.array([balance(yi)[2] for yi in sol.y.T])
     water_left = RHO_W * (r.V_b - V[-1])
-    return sol, p, thrust, water_left, V_pa < r.V_b
+    starved = sol.t_events[1].size > 0
+    if not starved:
+        water_left = 0.0                 # event at V_b (1e-9 tolerance)
+    return sol, p, thrust, water_left, starved
 
 
 # --- Phase 2: air thrust ---------------------------------------------------
@@ -217,25 +243,30 @@ def coast_height(r, v_max, mass):
 
 # --- Full flight -----------------------------------------------------------
 
-def simulate(r=None, fill=0.25, p_g=2.0e5, n=GAMMA):
+def simulate(r=None, fill=0.25, p_g=2.0e5, n=GAMMA, head=False):
     """Simulate one vertical flight.
 
     fill: initial water volume / bottle volume, 0 <= fill < 1
     p_g:  initial gauge pressure, Pa
     n:    polytropic exponent of the bottle gas (1.4 = dry adiabat)
+    head: include the inertial head of the water column (eq. W2h)
     """
     r = r or Rocket()
     p0 = r.p_a + p_g                                  # absolute, Pa
     V0 = (1.0 - fill) * r.V_b                         # initial air volume
     m_air = p0 * V0 / (R_AIR * r.T_a)                 # gas at ambient T
-    ev = {"fill": fill, "p_g": p_g, "n": n, "m_air0": m_air}
+    ev = {"fill": fill, "p_g": p_g, "n": n, "head": head, "m_air0": m_air}
+    if p0 <= r.p_a:                       # guard: no overpressure, no flight
+        ev.update(apogee_z=0.0, apogee_t=0.0)
+        zero = np.zeros(1)
+        return Flight(zero, zero, zero, zero, np.full(1, p0), np.ones(1), ev)
     T_parts, Z, Vv, F, P, PH = [], [], [], [], [], []
 
     # Phase 1: water. Skipped when there is no water.
     z, v, t, water_left, starved = 0.0, 0.0, 0.0, 0.0, False
     p1 = p0
     if fill > 0.0:
-        s1, p, thr, water_left, starved = water_phase(r, p0, V0, n, m_air)
+        s1, p, thr, water_left, starved = water_phase(r, p0, V0, n, m_air, head)
         T_parts.append(s1.t); Z.append(s1.y[0]); Vv.append(s1.y[1])
         F.append(thr); P.append(p); PH.append(np.full(s1.t.size, 1))
         t, z, v = s1.t[-1], s1.y[0, -1], s1.y[1, -1]
