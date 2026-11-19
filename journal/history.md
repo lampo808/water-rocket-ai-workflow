@@ -234,3 +234,18 @@ its own inferences, or the user's `R: ok` ratifies them unseen.
 Method: rerunning the corrected model reproduced the phase-2 numbers to
 the last digit printed. The numbers in `docs/` are a function of the
 code, so restoring the code restores the results.
+
+## Phase 5 (revision), 2026-11-19, session 4
+
+- Q1: phase 5 approved by the user (`R: ok`).
+- Q2: `method/` content accepted as proposed: the six files of BRIEF
+  section 8, plus the demo outcome in `method/agents.md`; link from
+  `README.md` to `method/README.md`; "(to be written)" markers removed.
+- User note in the Q2 answer: phases 1 to 6 were fast-forwarded with
+  minimal checks (mostly plain `R: ok`) to finish before the talk. In a
+  real project the user would check more, direct more and answer with
+  nuance. To be stated in `README.md` and `method/limits.md`.
+
+Method: most proposals in this repository were accepted with `R: ok`.
+This measures the time available, not the quality of the proposals. The
+`R:` channel supports nuanced answers; this run used little of it.
