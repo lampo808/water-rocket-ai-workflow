@@ -64,3 +64,25 @@ as proposed, 2 were extended by the user (licence of PDFs, port of the
 hook to other harnesses).
 Method: a local path quoted in an `R:` answer is private. It is kept out
 of the journal and of `prompts/`, which will be public.
+
+Later in the session:
+
+- Environment created with `uv sync` and `UV_PROJECT_ENVIRONMENT` outside
+  the synced folder: Python 3.13.14, numpy 2.5.5, scipy 1.18.1,
+  matplotlib 3.11.2. `uv.lock` forks numpy for Python 3.11 (2.4.6).
+- lit-scout downloads a PDF only if its licence allows redistribution
+  (CC BY, CC BY-SA, CC BY-NC, CC0, public domain). Free-to-read PDFs are
+  linked, not downloaded. Reason: the repository will be public.
+  Derived from the answer on licences; open for confirmation.
+- physics-referee is also forbidden `README.md`, `BRIEF.md`, `prompts/`
+  and the git history (except `git rev-parse`). Reason: these may name
+  the error expected in phase 3. It lists the files it opened in its
+  report, so the restriction can be checked afterwards.
+- The agents are told that their notes and reports may be wrong:
+  source-auditor checks claims against the source text, not against the
+  notes written by lit-scout.
+
+Method: Claude Code refused to let the agent write `.claude/settings.json`
+(classified as the agent changing its own permissions). The hook and
+the permission list are proposed in `live.md` and created by the user.
+The refusal is a feature of the harness, not of the model.
