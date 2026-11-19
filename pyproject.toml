@@ -1,0 +1,15 @@
+[project]
+name = "water-rocket-ai-workflow"
+version = "0.1.0"
+description = "Water rocket physics, built with a folder-based AI agent workflow"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy",
+    "scipy",
+    "matplotlib",
+]
+
+[tool.uv]
+# Plain scripts in code/, not an installable package.
+package = false
