@@ -249,3 +249,20 @@ code, so restoring the code restores the results.
 Method: most proposals in this repository were accepted with `R: ok`.
 This measures the time available, not the quality of the proposals. The
 `R:` channel supports nuanced answers; this run used little of it.
+
+## Phase 6 (method), 2026-11-19, session 4
+
+- `method/` written: `README.md`, `working-files.md`, `agents.md`,
+  `project-layout.md`, `starting-a-project.md`, `limits.md`. Sources:
+  `Method:` lines, final files, `git log`, `prompts/`.
+- Numbers in `method/` computed from the repository: 40 `R:` answers
+  archived, 17 of 20 plain `ok` in phases 1 to 5; journal 122 to 79
+  lines at the phase-0 compaction, no reduction at later ones.
+- Fast-forward notice in `README.md` (section Phases) and
+  `method/limits.md`.
+- Own inferences in `method/` labelled: "For the next project" in
+  `starting-a-project.md` marked "Not tried yet".
+
+Method: later compactions did not shrink the journal. Entries written
+in compact form from the start leave little to compact; the step is
+still useful as the moment to drop dead ends and add the approval.
