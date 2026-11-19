@@ -191,18 +191,25 @@ read-only checker can run.
 Method: an agent wrote a table indented under a list item; it did not
 render in Obsidian. The user fixed it by hand; the fix became a rule.
 
-## Phase 4 (source audit), 2026-11-19, session 3
+## Phase 4 (source audit), 2026-11-19, session 3 (compacted)
 
-- source-auditor run once, prompt in `prompts/phase-4.md`. Report
-  `checks/source-audit.md`: 31 attributed claims, 24 supported, 6
-  partly, 1 not supported (W2 vs the three cited equations: the
-  deliberate error). 3 uncited claims. All references resolve.
+source-auditor run once (prompt in `prompts/phase-4.md`). One review
+round in `live.md`.
+
+Decisions in force:
+
+- Report `checks/source-audit.md`: 31 attributed claims, 24 supported,
+  6 partly, 1 not supported (W2 vs the three cited equations: the
+  deliberate error). 3 uncited claims, 8 mismatched citations. All
+  references resolve.
 - P4 of the physics review resolved: the diffusivity 0.014 cm$^2$/s is
   Gommes's own value (p. 237); the note is faithful.
 - S2: "$C_D$ measured on the same rocket" was an inference of the main
-  session (equal mass and diameter), written as fact in phase 2 Q1 and
-  in `docs/physics.md`. To be corrected in phase 5.
-- Phase-5 fix list proposed in `live.md` Q2.
+  session (equal mass and diameter), written as fact in phase 2.
+- Phase-5 fix list (13 items, `prompts/phase-4.md`, Q2) accepted as
+  proposed, including the inertial head as a sensitivity case with a
+  cylindrical water column.
+- Phase 4 approved by the user, tag `phase-4-source-audit`.
 
 Method: the deliberate error was found independently by both checkers:
 by physics (limit, derivation) and by sources (cited equations differ).
