@@ -217,3 +217,20 @@ Method: the source audit caught an inference of the main session
 presented as fact ("same rocket"). The user had accepted it in a
 question because the question stated it as fact. A proposal must label
 its own inferences, or the user's `R: ok` ratifies them unseen.
+
+## Phase 5 (revision), 2026-11-19, session 3
+
+- Fix list of phase 4 Q2 applied (12 items; item 13 no change). Code:
+  (W2) restored, inertial-head sensitivity (W2h, W6h), guards. Docs:
+  section 6.3, citations corrected, own inferences labelled. Sources:
+  Urieli page 3 URL.
+- Document restored from the correct phase-2 version (`6f96f51`) and
+  then edited, not reverted by hand number by number. Reason: the
+  phase-2 numbers were from script output; the rerun reproduced them.
+- Inertial head: apogee +1.7 % to +3.8 %, optimum shift at most 0.01.
+  Conclusions unchanged. The unsteady term stays Open.
+- Phase 6 content asked in `live.md` (BRIEF: confirm before drafting).
+
+Method: rerunning the corrected model reproduced the phase-2 numbers to
+the last digit printed. The numbers in `docs/` are a function of the
+code, so restoring the code restores the results.
