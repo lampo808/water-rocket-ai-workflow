@@ -62,7 +62,7 @@ are not deterministic. The tags record the result obtained here.
 ### Phase 1: literature
 
 - Goal: run `lit-scout`; review the sources with the user.
-- Prompts: `prompts/phase-1.md` (to be written).
+- Prompts: `prompts/phase-1.md`.
 - Output: `sources/<key>.md`, `sources/references.bib`, `sources/pdf/`.
 - Result: `git checkout phase-1-literature`
 

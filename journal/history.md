@@ -111,3 +111,10 @@ left to the agent of phase 4.
 Method: a source the agent could not fetch (403) was downloaded by the
 user in a browser. The division of work: the agent finds and verifies,
 the user supplies access.
+
+## Phase 2 (physics), 2026-11-19, session 3
+
+- Model choices and the parameter set asked in `live.md` (Q1 to Q7)
+  before writing `docs/` or `code/`. Reason: every parameter must be
+  traced to a source, and the main choices (air-phase model, exponent,
+  validation scope) change the document.

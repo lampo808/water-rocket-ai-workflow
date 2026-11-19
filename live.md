@@ -6,73 +6,98 @@ then continue from `Resume` below. Answer lines start with `R:`.
 ## Current task
 
 Resume:
-- Phase: 1 (literature). Repository `water-rocket-ai-workflow`, branch `main`.
-- State: phase 0 closed, tag `phase-0-setup`. Phase 1 output committed
-  in `sources/`; review answers of round 1 archived.
-- Done: 14 notes, `sources/references.bib` (14 entries), 2 PDFs
-  (`qi2026research`, `ding2025dynamics`). DOIs checked against Crossref.
-- Waiting for the user: Q1 (phase-1 review).
-- Next step after `R: ok`: commit `journal: compact phase 1`, tag
-  `phase-1-literature`, start phase 2 (physics in the main session).
+- Phase: 2 (physics, main session, no subagents). Repository
+  `water-rocket-ai-workflow`, branch `main`.
+- State: phase 1 closed, tag `phase-1-literature` (on commit
+  `journal: compact phase 1`). Phase-2 prompts started in
+  `prompts/phase-2.md`.
+- Done: model outline and parameter proposal below. Nothing written yet
+  in `docs/` or `code/`.
+- Waiting for the user: Q1 to Q7 (model choices, parameters, files).
+- Next step after the answers: write `code/rocket.py` and the figure
+  scripts, run them, write `docs/physics.md`, report numbers here.
+- Talk: 2026-11-23. Phases 2 to 6 still to do.
 
 ## Open questions
 
-**Q1. Phase 1 review.** 14 sources in `sources/` (13 from lit-scout,
-`ding2025dynamics` written by the main session), 2 PDFs. Check the notes,
-in particular `sources/ding2025dynamics.md` (problems listed at its end).
-If it is fine, I compact the phase-1 journal entries, tag
-`phase-1-literature` and start phase 2. Proposal: write `R: ok` or list
-the corrections.
-R: ok, proceed
+**Q1. Reference rocket.** Every parameter must come from a saved
+source. Barrio-Perotti 2010 gives one rocket with all values measured:
+2 L bottle, $m_b = 133.2$ g, $D = 106.0$ mm, nozzle $d = 21.5$ mm,
+ambient 1020 mbar and 22 °C. Its drag coefficient was measured on the
+same rocket by free fall: $C_D = 0.345 \pm 0.004$ (Barrio-Perotti 2009;
+the 2010 paper uses 0.36). Proposal: use this rocket, $C_D = 0.345$,
+vertical launch.
+
+**Q2. Launch pressure.** The model uses absolute pressure
+$p_0 = p_a + p_g$, with gauge $p_g$ as input. Proposal: $p_g = 2$ bar
+for the trajectory (Barrio-Perotti measured case); apogee vs fill at
+$p_g = 1, 2, 3, 5$ bar (3 bar: their student limit; 5 bar: their model
+limit).
+
+**Q3. Water phase.** Proposal: quasi-steady Bernoulli with gauge
+pressure and area-ratio correction, eq. (W2) below. Neglected, stated as
+limits: unsteady term and inertial head of the water column (Gommes
+2010 shows they are of the same order as the pressure term at start:
+contested point), nozzle losses (discharge coefficient 1), launch tube.
+
+**Q4. Air expansion exponent.** Proposal: baseline dry adiabat,
+$n = \gamma = 1.4$ (BRIEF). Sensitivity: apogee curve also with $n = 1.2$
+(Romanelli 2013 measured 1.17 to 1.22, stationary bottle). Moist-air
+fit of Gommes 2010, eq. (6), cited but not used.
+
+**Q5. Air-only phase.** Two options in the sources:
+(a) quasi-steady isentropic flow through a convergent nozzle, choked
+while $p_a/p < 0.528$ (Barrio-Perotti 2010 approach, textbook
+relations); (b) the empirical efficiency $\eta = (V_0/V_b)^{\mu}$ fitted
+by Fischer 2020. Proposal: (a). It has no fitted parameter.
+
+**Q6. Check against measured apogees.** Fischer 2020, Table 2, gives
+measured apogees (14.1 to 17.5 m) for a 1 L rocket. Open for that
+rocket: nozzle diameter of the launched rocket (9 mm is stated only for
+the reference calculation) and gauge or absolute $p_0$. BRIEF scope does
+not include a validation. Proposal: no validation in phase 2; state in
+`docs/physics.md` that the model is not validated against apogee
+measurements. Alternative: run it with both pressure readings and the
+9 mm nozzle labelled as an assumption.
+
+**Q7. Files.** Proposal: `code/rocket.py` (model module),
+`code/fig_trajectory.py`, `code/fig_apogee_vs_fill.py`; figures saved in
+`docs/figures/` with the script's name; `docs/physics.md` with numbered
+equations and a section "Assumptions and limits".
 
 ## Working notes
 
-- Talk: 2026-11-23. All phases 0 to 6 before the talk.
+### Model outline (proposal, depends on Q1 to Q5)
 
-### lit-scout output
+1D vertical flight, height $z$, velocity $v$. Bottle volume $V_b$,
+water volume $V_{w0} = f V_b$, nozzle area $A_n$, bottle section $A_b$,
+ambient $p_a$, $\rho_a$.
 
-| key | category | access | PDF |
-|---|---|---|---|
-| barrioperotti2010theoretical | EJP; model + range measurements | full text (third-party copy) | no (closed; repo copy CC BY-NC-ND) |
-| barrioperotti2009experimental | EJP; drag measurement | full text (submitted manuscript) | no (CC BY-NC-ND) |
-| gommes2010more | AJP; model | full text (postprint) | no |
-| romanelli2013air | AJP; P-V measurement + model | arXiv v1 only, not the AJP version | no |
-| fischer2020approximation | arXiv; model, wind tunnel, 6 apogees | full text | no |
-| finney2000analysis | AJP | abstract only | no |
-| prusa2000hydrodynamics | SIAM Rev. | abstract only | no |
-| kagan1995soda | Phys. Teach. | metadata only | no |
-| thorncroft2009hydrodynamics | IJMEE; thrust-stand measurements | abstract only | no |
-| watanabe2003thrust | JSASS (Japanese); thrust measurements | English abstract only | no |
-| urieli2013water | lecture notes; model | page read | HTML, CC BY-NC-SA |
-| nasa2023flight | technical page; qualitative | page read | HTML |
-| qi2026research | J. Phys. Conf. Ser.; static force | full text | yes, CC BY 4.0 |
-| ding2025dynamics | Results Phys.; simulation only | full text (main session) | yes, CC BY 4.0 |
+Water phase (air volume $V$ from $V_0 = V_b - V_{w0}$ to $V_b$):
 
-Main-session check: the 11 DOIs resolve on Crossref with matching first
-author, year, title and venue. arXiv 2001.08828 resolves.
-`sources/pdf/qi2026research.pdf` is a 10-page PDF. Note contents were not
-re-read; source-auditor checks them in phase 4.
+$$p = p_0\left(\frac{V_0}{V}\right)^{n} \tag{W1}$$
+$$u_e = \sqrt{\frac{2(p - p_a)}{\rho_w\left[1 - (A_n/A_b)^2\right]}} \tag{W2}$$
+$$\frac{dV}{dt} = A_n u_e \tag{W3}$$
+$$m = m_b + m_{air} + \rho_w (V_b - V) \tag{W4}$$
+$$m\frac{dv}{dt} = \rho_w A_n u_e^2 - m g - \tfrac12 \rho_a C_D A_b\, v|v| \tag{W5}$$
 
-Coverage by topic:
-- 1 (thrust with water), 2 (air expansion), 4 (drag): covered.
-- 3 (air-only thrust): Barrio-Perotti 2010 (adiabatic, choked nozzle),
-  Fischer 2020 (empirical efficiency $\eta = (V_0/V_b)^{\mu}$, $\mu \approx 3$).
-  No direct measurement.
-- 5 (optimal fill): Barrio-Perotti 2010 (measured, range); Ding 2025
-  (simulated, apogee: water volume ratio 0.498). No measured optimum for
-  apogee.
-- 6 (thrust curves): Open. Only Thorncroft 2009 and Watanabe 2003 report
-  them, by their abstracts; full text not accessed.
+Ends when $V = V_b$, or when $p = p_a$ with water left (overfill: no
+air phase, the residual water stays as dead mass).
 
-Points for phase 2:
-- Gauge or absolute pressure: Open in Gommes ($P_i$), Fischer ($p_0$,
-  Table 2) and Qi. Each note marks it.
-- Romanelli 2013, Table I: measured polytropic exponent 1.17 to 1.22,
-  0.05 to 0.06 below the paper's own theory in every row. The text calls
-  the agreement "very good". Own inference of lit-scout, not checked by
-  the main session.
-- Excluded: NASA GRC "Water Rocket" page (no quantitative content; states
-  water is "about 100 times heavier than air", the ratio is about 800);
-  UPenn wiki (no author or date); Thorncroft & Pascual 2005 (superseded
-  by the 2009 paper); NHSJS 2025 (student journal); theses, galleries,
-  commercial pages by source type.
+Air phase: bottle gas starts at $p_1 = p_0 (V_0/V_b)^n$, temperature
+from the adiabat. Choked if $p_a/p < (2/(\gamma+1))^{\gamma/(\gamma-1)} = 0.528$:
+sonic exit, $p_e > p_a$, thrust $\dot m u_e + (p_e - p_a)A_n$.
+Unchoked: $p_e = p_a$. Ends when $p = p_a$.
+
+Ballistic phase: (W5) without thrust, $m = m_b$. Apogee at $v = 0$.
+Analytic check of the coast height (Fischer 2020, eq. 35):
+$h_c = \frac{1}{2\psi}\ln(1 + \psi v_{max}^2/g)$,
+$\psi = \rho_a C_D A_b / (2 m_b)$.
+
+Derived numbers (textbook relations applied to Q1 values):
+$A_n/A_b = (21.5/106.0)^2 = 0.041$; the correction in (W2) is 0.2 %.
+$\rho_a = p_a/(R T) = 1.20$ kg m$^{-3}$ at 1020 mbar, 22 °C.
+
+Optimal fill: apogee vs $f$ from 0 to 0.9. Labelled own inference.
+Trend compared with Barrio-Perotti 2010 (range, 45 degrees: optimum 0.5
+to 0.6 L in 2 L) and Ding 2025 (simulated, $f = 0.498$).
