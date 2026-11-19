@@ -118,3 +118,31 @@ the user supplies access.
   before writing `docs/` or `code/`. Reason: every parameter must be
   traced to a source, and the main choices (air-phase model, exponent,
   validation scope) change the document.
+- Q1 to Q7 accepted as proposed (archived in `prompts/phase-2.md`):
+  reference rocket of Barrio-Perotti 2010 with $C_D = 0.345$
+  (Barrio-Perotti 2009), vertical launch; $p_g = 2$ bar for the
+  trajectory, 1, 2, 3, 5 bar for the sweep; quasi-steady Bernoulli in
+  the water phase, water inertia neglected and labelled contested;
+  $n = 1.4$ baseline, $n = 1.2$ sensitivity; air phase by isentropic
+  convergent-nozzle flow, choked or subsonic, no fitted parameter; no
+  validation against measured apogees, stated in `docs/physics.md`;
+  files `code/rocket.py`, `code/fig_trajectory.py`,
+  `code/fig_apogee_vs_fill.py`, `docs/figures/`.
+- Rule added (user): the agent writes an empty `R:` line below every
+  question. An empty `R:` is not an answer. The hook now counts answered
+  and empty `R:` lines apart, so the count stays meaningful.
+- Model results: apogee 26.6 m at $f = 0.25$, 2 bar. Optimum fill 0.22
+  to 0.30 over 1 to 5 bar, in the range of the Barrio-Perotti 2010
+  range optimum (0.5 to 0.6 L). Initial acceleration 22 g against about
+  70 g in the Barrio-Perotti model with water inertia: the largest
+  known gap, listed as limit 1 in `docs/physics.md`.
+- Demo error: none identified by the main session. BRIEF section 8:
+  the user introduces one in a labelled commit. Asked in `live.md`.
+
+Method: the user's answer said "after each answer" for "below each
+question". The agent applied the reading that fits the `R:` convention
+and stated the reading in the archive.
+Method: a number written in the draft from the figure (flat optimum,
+"0.20 to 0.35") was wrong; recomputing it from the sweep gave 0.17 to
+0.38. Numbers in `docs/` are taken from script output, not read off
+plots.
