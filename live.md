@@ -7,35 +7,53 @@ then continue from `Resume` below. Answer lines start with `R:`.
 
 Resume:
 - Phase: 3 (physics check). Repository `water-rocket-ai-workflow`,
-  branch `main`. Last tag `phase-2-physics` (on `journal: compact
-  phase 2`).
-- Done: phase 2 closed. Deliberate error in commit `db9a551` (details
-  in git-ignored `private/demo-error.md`). Prompt to the referee in
-  `prompts/phase-3.md`.
-- In progress: `physics-referee` running; output
-  `checks/physics-review.md`.
-- Next step: read the report, check whether it found the deliberate
-  error, summarise here, ask for the phase-3 review. If the session
-  stopped before the report exists, rerun the agent with the prompt in
-  `prompts/phase-3.md`.
+  branch `main`. Last tag `phase-2-physics`.
+- Done: `physics-referee` run once on commit `7032b5b`; report
+  committed as `checks/physics-review.md`. It found the deliberate
+  error (P1).
+- Waiting for the user: Q1 (phase-3 review).
+- Next step after `R: ok`: commit `journal: compact phase 3`, tag
+  `phase-3-physics-check`, start phase 4 (run source-auditor).
 - Talk: 2026-11-23. Phases 3 to 6 still to do.
 
 ## Open questions
 
-None.
+**Q1. Phase 3 review.** Read `checks/physics-review.md` (summary in
+Working notes). The referee found the deliberate error as P1, with a
+derivation, a limit and the corrected numbers. Nothing is fixed in this
+phase: fixes go in phase 5 with the source audit. Proposal: `R: ok`
+closes phase 3 as it is; otherwise list what to rerun or change.
+R: 
 
 ## Working notes
 
-### Phase 2 results (from script output)
+### physics-referee report (commit `7032b5b`)
 
-![Trajectory](docs/figures/fig_trajectory.png)
+1 error, 1 questionable, 4 minor. Files opened: only allowed ones; it
+also skipped `docs/README.md` and `code/README.md` to be safe.
 
-$f = 0.25$, $p_g = 2$ bar, $n = 1.4$: peak thrust 145.5 N; water out
-at 82.2 ms, 23.9 m/s; air out at 103.7 ms, 26.6 m/s; apogee 26.6 m at
-2.25 s. Coast height: numerical 25.22 m, eq. (B2) 25.22 m.
+- P1 [error] (W2) uses absolute $p$ instead of $p - p_a$. This is the
+  deliberate error. Found by derivation, by the limit $p_g = 0$ (74 N
+  of thrust on an unpressurised bottle) and by the conflict with (W7).
+  Its corrected numbers (apogee 26.6 m, peak thrust 145.5 N, optimum
+  0.22 to 0.30) equal those of the correct model, commit `6f96f51`.
+  Main session reproduced: `simulate(fill=0.25, p_g=0)` gives apogee
+  1.75 m and `water_left = -0.135` kg.
+- P2 [questionable] inertial head $ho_w(g+a)h$ not estimated:
+  about 13 kPa at launch, 6 % of the driving pressure. Proposes a
+  sensitivity case. Same point as limit 1, now with a number.
+- P3 [minor] water-phase end event can fail to fire; `sol.status` not
+  checked. Real, independent of P1.
+- P4 [minor] $\delta_h = 0.4$ mm not reproducible: air diffusivity gives
+  0.8 to 1.5 mm. Own inference (main session): the 0.4 mm follows from
+  $\chi = 0.014$ cm$^2$/s, the value in `sources/gommes2010more.md`; air
+  at 1 to 3 bar has 0.07 to 0.22 cm$^2$/s. Open: whether the value is
+  Gommes's or a transcription error of the note. For source-auditor.
+- P5 [minor] exponent effect "6 % to 7 %": 5.9 % at 5 bar from the
+  rounded table.
+- P6 [minor] Ding comparison at 0.75 MPa, outside the sweep, gauge or
+  absolute not stated.
 
-![Apogee vs fill](docs/figures/fig_apogee_vs_fill.png)
-
-Optimum fill $f_{opt}$ (apogee, m): 1 bar 0.22 (11.3); 2 bar 0.27
-(26.7); 3 bar 0.28 (39.9); 5 bar 0.28 (60.6), $n = 1.4$. With
-$n = 1.2$: +0.02 in $f_{opt}$, +7 % to +12 % in apogee.
+Checks passed include dimensions of all equations, signs, the
+variable-mass balance, the nozzle relations, (W7), (B2) against the
+integration.

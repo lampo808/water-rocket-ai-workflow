@@ -159,3 +159,24 @@ plots.
 Method: the deliberate error was propagated through the results, so the
 document is self-consistent and the referee must find it from physics
 (limits, consistency), not from a mismatch between equation and numbers.
+
+## Phase 3 (physics check), 2026-11-19, session 3
+
+- physics-referee run once, prompt in `prompts/phase-3.md`, on commit
+  `7032b5b`. Report `checks/physics-review.md`: 1 error, 1
+  questionable, 4 minor.
+- P1 is the deliberate error, found with a derivation, the limit
+  $p_g = 0$ and the conflict with (W7). The corrected numbers it
+  computed match the correct model of commit `6f96f51`.
+- No fix in phase 3. Fixes in phase 5, together with the source audit.
+- Open for phase 4: P4 (thermal diffusivity 0.014 cm$^2$/s in the
+  Gommes note is about 5 to 15 times below air at 1 to 3 bar; source or
+  note error not known).
+
+Method: the referee reported the files it opened and skipped
+`docs/README.md` and `code/README.md` because the ban on `README.md`
+might cover them. The restriction was read conservatively.
+Method: the referee did not run the figure scripts because they write
+into `docs/`, which it must not modify. It reproduced the numbers by
+calling the model directly. Scripts that write output limit what a
+read-only checker can run.
