@@ -78,37 +78,36 @@ the user. It was used to add a rule (the resume block).
 Method: the resume test passed. A new session started with the prompt
 "read live.md" restored the context and continued.
 
-## Phase 1 (literature), 2026-11-19, session 2
+## Phase 1 (literature), 2026-11-19, sessions 2 and 3 (compacted)
 
-- lit-scout run once (prompt in `prompts/phase-1.md`): 13 sources, all
-  identity-verified; 6 read in full, 7 abstract or metadata only. One PDF
-  downloaded (`qi2026research`, CC BY 4.0).
-- Main session re-checked the 10 DOIs on Crossref: all match. The
-  agent's notes on content were not re-read in full; source-auditor
-  checks content in phase 4.
-- Open: thrust curves vs time (topic 6) not available in full text;
-  optimum fill for vertical apogee not measured in any source read.
+lit-scout run once (prompt in `prompts/phase-1.md`). Two review rounds
+in `live.md`; questions and answers archived in `prompts/phase-1.md`.
+
+Decisions in force:
+
+- 14 sources in `sources/`, 14 BibTeX entries. 13 from lit-scout, all
+  identity-verified; 6 read in full, 7 abstract or metadata only.
+  `ding2025dynamics` written by the main session from the full text.
+  The main session re-checked the 11 DOIs on Crossref: all match. Note
+  contents were not re-read; source-auditor checks them in phase 4.
+- PDFs: `qi2026research` and `ding2025dynamics`, both CC BY 4.0. The two
+  Barrio-Perotti repository copies (CC BY-NC-ND) are linked, not
+  downloaded: the phase-0 licence rule is kept.
+- `qi2026research` is kept as a note and not cited in `docs/` for any
+  value (uncited reuse of the Gommes 2010 abstract, labelling errors).
+- Optimal fill for apogee: a model result in phase 2, labelled own
+  inference. Compared with Barrio-Perotti 2010 (measured range, 45
+  degree ramp, 2 L at 2 bar gauge: 0.5 to 0.6 L) as a trend check only.
+  Ding 2025 (simulated, water volume ratio 0.498) is a model comparison,
+  not a measurement.
+- Open, carried to phase 2: thrust curves vs time (topic 6) not available
+  in full text; no measured optimum for vertical apogee; gauge or
+  absolute pressure unstated in Gommes, Fischer and Qi.
+- Phase 1 approved by the user, tag `phase-1-literature`.
 
 Method: the main session checks agent output that is cheap to check
 (DOIs on Crossref, PDF type) before presenting it. Content checks are
 left to the agent of phase 4.
-
-Review answers (phase 1, round 1):
-
-- Q1: the 13 sources from lit-scout accepted as they are.
-- Q2: CC BY-NC-ND copies not downloaded; rule of phase 0 kept, URLs
-  linked in the notes.
-- Q3: Ding et al. 2025 PDF downloaded by the user. Note written by the
-  main session from the full text: `sources/ding2025dynamics.md`. PDF
-  renamed from the publisher file name to the source key. 14 sources in
-  total.
-- Q4: `qi2026research` kept as a note; not cited in `docs/` for any value.
-- Q5: in phase 2 the optimal fill for apogee is a model result, labelled
-  own inference, compared with Barrio-Perotti 2010 (range, 45 degree ramp)
-  as a trend check only. Ding 2025 gives a simulated optimum (water volume
-  ratio 0.498, 2.13 L, 0.75 MPa); it is a model result too, usable as a
-  comparison, not as a measurement.
-
 Method: a source the agent could not fetch (403) was downloaded by the
 user in a browser. The division of work: the agent finds and verifies,
 the user supplies access.

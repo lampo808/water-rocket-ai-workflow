@@ -79,3 +79,24 @@ Result: the user placed the Ding et al. 2025 PDF in `sources/pdf/`. The
 main session verified the DOI, read the full text, wrote
 `sources/ding2025dynamics.md` and its BibTeX entry, and renamed the PDF
 to `ding2025dynamics.pdf` (key convention of lit-scout).
+
+### Questions and answers, round 2
+
+**Q1. Phase 1 review.** 14 sources in `sources/` (13 from lit-scout,
+`ding2025dynamics` written by the main session), 2 PDFs. Check the notes,
+in particular `sources/ding2025dynamics.md` (problems listed at its end).
+If it is fine, I compact the phase-1 journal entries, tag
+`phase-1-literature` and start phase 2. Proposal: write `R: ok` or list
+the corrections.
+R: ok, proceed
+
+## Prompt 3
+
+Context: new Claude Code session.
+
+```text
+read @live.md and proceed
+```
+
+Result: the session acted on the `R: ok, proceed`, compacted the phase-1
+journal, tagged `phase-1-literature` and started phase 2.

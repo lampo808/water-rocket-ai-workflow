@@ -23,6 +23,7 @@ in particular `sources/ding2025dynamics.md` (problems listed at its end).
 If it is fine, I compact the phase-1 journal entries, tag
 `phase-1-literature` and start phase 2. Proposal: write `R: ok` or list
 the corrections.
+R: ok, proceed
 
 ## Working notes
 
