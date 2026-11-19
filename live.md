@@ -20,7 +20,7 @@ Resume:
 
 **Q1. Phase 4 review.** Read `checks/source-audit.md` (summary in
 Working notes). Proposal: `R: ok` closes phase 4 as it is.
-R: 
+R: ok
 
 **Q2. Phase 5: fixes.** One list from both reports. P = physics review,
 S = source audit (mismatched citations, numbered as in the report).
@@ -62,7 +62,7 @@ Proposal: apply all, as described.
 13. Not changed: S7 (Romanelli read in arXiv v1) is already stated in
     the References.
 
-R: 
+R: ok
 
 ## Working notes
 
