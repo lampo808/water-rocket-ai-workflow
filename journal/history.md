@@ -160,18 +160,26 @@ Method: the deliberate error was propagated through the results, so the
 document is self-consistent and the referee must find it from physics
 (limits, consistency), not from a mismatch between equation and numbers.
 
-## Phase 3 (physics check), 2026-11-19, session 3
+## Phase 3 (physics check), 2026-11-19, session 3 (compacted)
 
-- physics-referee run once, prompt in `prompts/phase-3.md`, on commit
-  `7032b5b`. Report `checks/physics-review.md`: 1 error, 1
-  questionable, 4 minor.
-- P1 is the deliberate error, found with a derivation, the limit
-  $p_g = 0$ and the conflict with (W7). The corrected numbers it
-  computed match the correct model of commit `6f96f51`.
-- No fix in phase 3. Fixes in phase 5, together with the source audit.
+physics-referee run once (prompt in `prompts/phase-3.md`) on commit
+`7032b5b`. One review round in `live.md`.
+
+Decisions in force:
+
+- Report `checks/physics-review.md`: 1 error, 1 questionable, 4 minor.
+  P1 is the deliberate error, found with a derivation, the limit
+  $p_g = 0$ and the conflict with (W7). Its corrected numbers match the
+  correct model of commit `6f96f51`.
+- No fix in phase 3. All fixes in phase 5, with the source audit.
 - Open for phase 4: P4 (thermal diffusivity 0.014 cm$^2$/s in the
-  Gommes note is about 5 to 15 times below air at 1 to 3 bar; source or
-  note error not known).
+  Gommes note is 5 to 15 times below air at 1 to 3 bar; source or note
+  error not known).
+- The user unindented the tables of the report for Obsidian (commit
+  `c9e76f3`). Rule added to `AGENTS.md` section 6: Markdown tables start
+  at column 0. The agent definitions are not changed (phase-0 decision:
+  kept as generated); agents read the rule through `AGENTS.md`.
+- Phase 3 approved by the user, tag `phase-3-physics-check`.
 
 Method: the referee reported the files it opened and skipped
 `docs/README.md` and `code/README.md` because the ban on `README.md`
@@ -180,3 +188,5 @@ Method: the referee did not run the figure scripts because they write
 into `docs/`, which it must not modify. It reproduced the numbers by
 calling the model directly. Scripts that write output limit what a
 read-only checker can run.
+Method: an agent wrote a table indented under a list item; it did not
+render in Obsidian. The user fixed it by hand; the fix became a rule.
