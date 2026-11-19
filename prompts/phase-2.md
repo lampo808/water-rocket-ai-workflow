@@ -83,3 +83,36 @@ question); hook counts answered and empty `R:` lines apart. The status
 line fix concerned a user file outside the repository and is not
 recorded here. `code/rocket.py`, two figure scripts, `docs/physics.md`
 written; phase-2 review questions in `live.md`.
+
+### Questions and answers, round 2
+
+**Q1. Phase 2 review.** Read `docs/physics.md` (results in section 6,
+limits in section 7) and the two figures. Points to check: limit 1
+(water inertia neglected: initial acceleration 22 $g$ here, about 70 $g$
+in Barrio-Perotti 2010) and limit 6 (air phase with $\gamma$ in the
+nozzle, $n$ in the bottle). Proposal: `R: ok` closes phase 2 as it is;
+otherwise list corrections.
+R: ok
+
+**Q2. Error for the live check.** BRIEF section 8: a physics error made
+in phase 2 is left unfixed for the referee. I have not found one. One
+error of mine was caught before the commit (a number read off a plot,
+not physics; journal, `Method:` line). BRIEF: if there is none, you
+introduce one in a separate commit `demo: introduce deliberate error for
+the live check`. Proposal: you choose the error and write it here; I
+make that commit and record it in `private/demo-error.md`. Example of a
+plausible one: thrust in (W5) written as $\rho_w A_n u_e^2/2$, or the
+absolute pressure $p$ in place of $p - p_a$ in (W2).
+R: let's go with the absolute pressure instead of p-pa
+
+## Prompt 3
+
+```text
+procedi
+```
+
+Translation: "go ahead".
+
+Result: deliberate error introduced (commit `demo: introduce deliberate
+error for the live check`), README notice added, phase-2 journal
+compacted, tag `phase-2-physics`. Phase 3 started.

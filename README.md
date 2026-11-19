@@ -80,6 +80,10 @@ are not deterministic. The tags record the result obtained here.
 ### Phase 3: physics check (shown live in the talk)
 
 - Goal: run `physics-referee` on `docs/` and `code/`.
+- A deliberate physics error was introduced at the end of phase 2, in a
+  separate commit labelled `demo: introduce deliberate error for the
+  live check`, as planned in `BRIEF.md` section 8. The referee is not
+  told about it. It is fixed in phase 5.
 - Prompts: `prompts/phase-3.md` (to be written).
 - Output: `checks/physics-review.md`.
 - Result: `git checkout phase-3-physics-check`
