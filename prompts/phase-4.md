@@ -24,3 +24,8 @@ checks/source-audit.md in the format given there, with Markdown tables
 starting at column 0, and return the final message described in your
 instructions.
 ```
+
+Result: `checks/source-audit.md`: 31 attributed claims (24 supported,
+6 partly, 1 not supported), 3 uncited claims, 8 mismatched citations,
+all references resolve. Questions Q1 (review) and Q2 (phase-5 fix list)
+in `live.md`.

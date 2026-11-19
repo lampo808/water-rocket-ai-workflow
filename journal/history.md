@@ -190,3 +190,23 @@ calling the model directly. Scripts that write output limit what a
 read-only checker can run.
 Method: an agent wrote a table indented under a list item; it did not
 render in Obsidian. The user fixed it by hand; the fix became a rule.
+
+## Phase 4 (source audit), 2026-11-19, session 3
+
+- source-auditor run once, prompt in `prompts/phase-4.md`. Report
+  `checks/source-audit.md`: 31 attributed claims, 24 supported, 6
+  partly, 1 not supported (W2 vs the three cited equations: the
+  deliberate error). 3 uncited claims. All references resolve.
+- P4 of the physics review resolved: the diffusivity 0.014 cm$^2$/s is
+  Gommes's own value (p. 237); the note is faithful.
+- S2: "$C_D$ measured on the same rocket" was an inference of the main
+  session (equal mass and diameter), written as fact in phase 2 Q1 and
+  in `docs/physics.md`. To be corrected in phase 5.
+- Phase-5 fix list proposed in `live.md` Q2.
+
+Method: the deliberate error was found independently by both checkers:
+by physics (limit, derivation) and by sources (cited equations differ).
+Method: the source audit caught an inference of the main session
+presented as fact ("same rocket"). The user had accepted it in a
+question because the question stated it as fact. A proposal must label
+its own inferences, or the user's `R: ok` ratifies them unseen.
