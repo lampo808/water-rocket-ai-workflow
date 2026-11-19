@@ -126,6 +126,8 @@ Applies to `live.md`, the journal, reports, documents and commit messages.
 - Everything in the repository is in English. The chat with the user may
   be in Italian.
 - No emoji anywhere.
+- Markdown tables start at column 0, never indented under a list item:
+  Obsidian does not render indented tables.
 
 ## 7. Code
 
