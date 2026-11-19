@@ -1,6 +1,7 @@
 # water-rocket-ai-workflow
 
-<!-- Phase 6: link to method/README.md here, as the entry point for new readers. -->
+**New readers: start from [method/README.md](method/README.md)**, the
+documentation of the working method.
 
 This repository supports a 15-minute talk on AI in research and teaching
 (23 November 2026, Department of Science and High Technology, University
@@ -50,6 +51,14 @@ prompts are in `prompts/phase-N.md`.
 Re-running a phase gives different sources and different text: the models
 are not deterministic. The tags record the result obtained here.
 
+**This run was fast-forwarded.** To reach the end before the talk, I
+reviewed phases 1 to 6 with minimal checks: most of my answers in
+`live.md` were a plain `R: ok`. In a real project I would check much
+more, give more direction and apply my own judgement and taste, with
+fewer plain `ok`s and more nuanced answers. Read the repository as a
+demonstration of the workflow, not as a reviewed piece of physics. See
+`method/limits.md`.
+
 ### Phase 0: setup
 
 - Goal: folder structure, rules (`AGENTS.md`, `CLAUDE.md`), `live.md` and
@@ -73,7 +82,7 @@ are not deterministic. The tags record the result obtained here.
   adiabatic expansion of the air, air-only thrust, ballistic phase with
   quadratic drag, optimal fill fraction. A simulation of trajectory and
   apogee versus fill fraction.
-- Prompts: `prompts/phase-2.md` (to be written).
+- Prompts: `prompts/phase-2.md`.
 - Output: `docs/physics.md`, `code/`.
 - Result: `git checkout phase-2-physics`
 
@@ -84,21 +93,21 @@ are not deterministic. The tags record the result obtained here.
   separate commit labelled `demo: introduce deliberate error for the
   live check`, as planned in `BRIEF.md` section 8. The referee is not
   told about it. It is fixed in phase 5.
-- Prompts: `prompts/phase-3.md` (to be written).
+- Prompts: `prompts/phase-3.md`.
 - Output: `checks/physics-review.md`.
 - Result: `git checkout phase-3-physics-check`
 
 ### Phase 4: source audit
 
 - Goal: run `source-auditor` on `docs/` against `sources/`.
-- Prompts: `prompts/phase-4.md` (to be written).
+- Prompts: `prompts/phase-4.md`.
 - Output: `checks/source-audit.md`.
 - Result: `git checkout phase-4-source-audit`
 
 ### Phase 5: revision
 
 - Goal: revise the document from both reports.
-- Prompts: `prompts/phase-5.md` (to be written).
+- Prompts: `prompts/phase-5.md`.
 - Output: `docs/`, `code/`. `git diff phase-4-source-audit phase-5-revision -- docs code`
   shows what changed.
 - Result: `git checkout phase-5-revision`
@@ -107,7 +116,7 @@ are not deterministic. The tags record the result obtained here.
 
 - Goal: document the working method from the journal, the final files and
   the commit history.
-- Prompts: `prompts/phase-6.md` (to be written).
+- Prompts: `prompts/phase-6.md`.
 - Output: `method/`.
 - Result: `git checkout phase-6-method`
 
