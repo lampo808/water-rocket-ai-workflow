@@ -22,26 +22,26 @@ The document models the vertical flight of a 2 L water rocket in three phases: q
   - Numbers: peak thrust $\rho_w A_n u_e^2 = 2pA_n/k = 2(3.02\times10^5)(3.63\times10^{-4})/0.998 = 219.7$ N (table, line 204). With $p - p_a$: 145.5 N.
 - Consequences, recomputed with $p - p_a$ in (W2) and nothing else changed (same integrator, same events):
 
-  | Quantity, $f = 0.25$, $p_g = 2$ bar, $n = 1.4$ | Document | Corrected |
-  |---|---|---|
-  | peak thrust | 219.7 N | 145.5 N |
-  | initial acceleration | 34.1 $g$ | 22.3 $g$ |
-  | end of water phase | 62.3 ms, 32.3 m/s | 82.2 ms, 23.9 m/s |
-  | thrust at end of water phase, water / air | 147 N / 56 N | 72.6 N / 55.9 N |
-  | end of air phase | 83.8 ms, 34.9 m/s | 103.7 ms, 26.6 m/s |
-  | velocity gain in air phase | 8 % | 11.5 % |
-  | apogee | 38.1 m at 2.60 s | 26.6 m at 2.25 s |
+| Quantity, $f = 0.25$, $p_g = 2$ bar, $n = 1.4$ | Document | Corrected |
+| ---------------------------------------------- | -------- | --------- |
+| peak thrust                                    | 219.7 N  | 145.5 N   |
+| initial acceleration | 34.1 $g$ | 22.3 $g$ |
+| end of water phase | 62.3 ms, 32.3 m/s | 82.2 ms, 23.9 m/s |
+| thrust at end of water phase, water / air | 147 N / 56 N | 72.6 N / 55.9 N |
+| end of air phase | 83.8 ms, 34.9 m/s | 103.7 ms, 26.6 m/s |
+| velocity gain in air phase | 8 % | 11.5 % |
+| apogee | 38.1 m at 2.60 s | 26.6 m at 2.25 s |
 
-  | $p_g$ (bar) | $n$ | $f_{opt}$ doc | apogee doc (m) | $f_{opt}$ corrected | apogee corrected (m) | within 10 % of max, corrected |
-  |---|---|---|---|---|---|---|
-  | 1 | 1.4 | 0.38 | 29.8 | 0.22 | 11.3 | 0.15-0.29 |
-  | 1 | 1.2 | 0.43 | 31.8 | 0.24 | 12.7 | 0.16-0.32 |
-  | 2 | 1.4 | 0.39 | 40.7 | 0.27 | 26.7 | 0.17-0.38 |
-  | 2 | 1.2 | 0.41 | 43.3 | 0.29 | 29.3 | 0.17-0.41 |
-  | 3 | 1.4 | 0.36 | 50.6 | 0.28 | 39.9 | 0.16-0.42 |
-  | 3 | 1.2 | 0.38 | 53.8 | 0.30 | 43.3 | 0.16-0.46 |
-  | 5 | 1.4 | 0.33 | 67.4 | 0.28 | 60.6 | 0.14-0.46 |
-  | 5 | 1.2 | 0.34 | 71.4 | 0.30 | 65.0 | 0.14-0.49 |
+| $p_g$ (bar) | $n$ | $f_{opt}$ doc | apogee doc (m) | $f_{opt}$ corrected | apogee corrected (m) | within 10 % of max, corrected |
+|---|---|---|---|---|---|---|
+| 1 | 1.4 | 0.38 | 29.8 | 0.22 | 11.3 | 0.15-0.29 |
+| 1 | 1.2 | 0.43 | 31.8 | 0.24 | 12.7 | 0.16-0.32 |
+| 2 | 1.4 | 0.39 | 40.7 | 0.27 | 26.7 | 0.17-0.38 |
+| 2 | 1.2 | 0.41 | 43.3 | 0.29 | 29.3 | 0.17-0.41 |
+| 3 | 1.4 | 0.36 | 50.6 | 0.28 | 39.9 | 0.16-0.42 |
+| 3 | 1.2 | 0.38 | 53.8 | 0.30 | 43.3 | 0.16-0.46 |
+| 5 | 1.4 | 0.33 | 67.4 | 0.28 | 60.6 | 0.14-0.46 |
+| 5 | 1.2 | 0.34 | 71.4 | 0.30 | 65.0 | 0.14-0.49 |
 
 - Conclusions that no longer follow (section 6):
   - "The optimum lies between 0.33 and 0.43. Above 2 bar it moves down with pressure." Corrected: 0.22 to 0.30, and it does not move down above 2 bar (0.27, 0.28, 0.28 for $n = 1.4$).
