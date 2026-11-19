@@ -112,3 +112,11 @@ unless it is archived. Archiving question and answer verbatim in
 `prompts/phase-N.md` keeps `live.md` short and the exchange readable.
 Method: a free `R:` line not attached to a question works as a note from
 the user. It was used to add a rule (the resume block).
+
+Review answers (round 3):
+
+- Phase 0 approved by the user (`R: ok`). Next: compaction, tag
+  `phase-0-setup`, phase 1.
+
+Method: the resume test passed. A new session started with the prompt
+"read live.md" restored the context and continued.

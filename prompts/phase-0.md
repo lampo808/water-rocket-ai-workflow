@@ -217,3 +217,26 @@ risposto, fai quello che serve prima che rilanci claude
 ```
 
 Translation: "answered, do what is needed before I restart Claude".
+
+Result: archive of the round-2 answers, resume block in `live.md`, one
+review question (Q1 below).
+
+### Questions and answers, round 3
+
+**Q1. Phase 0 review.** Everything is committed. Check `git log
+--oneline` and the files. If it is fine, I compact the phase-0 journal
+entries in a separate commit, tag `phase-0-setup` and start phase 1 by
+running lit-scout. Proposal: write `R: ok` or list the corrections.
+R: ok
+
+## Prompt 4
+
+Context: new Claude Code session, after the restart.
+
+```text
+read live.md
+```
+
+Result: the session restored the context from `live.md` and the journal,
+acted on the `R: ok`, compacted the phase-0 journal and tagged
+`phase-0-setup`.
