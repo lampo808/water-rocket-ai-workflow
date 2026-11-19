@@ -112,32 +112,42 @@ Method: a source the agent could not fetch (403) was downloaded by the
 user in a browser. The division of work: the agent finds and verifies,
 the user supplies access.
 
-## Phase 2 (physics), 2026-11-19, session 3
+## Phase 2 (physics), 2026-11-19, session 3 (compacted)
 
-- Model choices and the parameter set asked in `live.md` (Q1 to Q7)
-  before writing `docs/` or `code/`. Reason: every parameter must be
-  traced to a source, and the main choices (air-phase model, exponent,
-  validation scope) change the document.
-- Q1 to Q7 accepted as proposed (archived in `prompts/phase-2.md`):
-  reference rocket of Barrio-Perotti 2010 with $C_D = 0.345$
-  (Barrio-Perotti 2009), vertical launch; $p_g = 2$ bar for the
-  trajectory, 1, 2, 3, 5 bar for the sweep; quasi-steady Bernoulli in
-  the water phase, water inertia neglected and labelled contested;
-  $n = 1.4$ baseline, $n = 1.2$ sensitivity; air phase by isentropic
-  convergent-nozzle flow, choked or subsonic, no fitted parameter; no
-  validation against measured apogees, stated in `docs/physics.md`;
-  files `code/rocket.py`, `code/fig_trajectory.py`,
-  `code/fig_apogee_vs_fill.py`, `docs/figures/`.
+Main session only, no subagents. Two question rounds in `live.md`,
+archived in `prompts/phase-2.md`. Model choices were asked before any
+file in `docs/` or `code/` was written: every parameter must trace to a
+source, and the choices change the document.
+
+Decisions in force:
+
+- Reference rocket: Barrio-Perotti 2010 (2 L, 133.2 g, D 106.0 mm,
+  nozzle 21.5 mm, 1020 mbar, 22 degC), $C_D = 0.345$ measured on it
+  (Barrio-Perotti 2009). Vertical launch.
+- Pressures: gauge input, absolute in the equations. Trajectory at
+  2 bar; sweep at 1, 2, 3, 5 bar.
+- Water phase: quasi-steady Bernoulli with area correction. Water
+  inertia and unsteady term neglected, labelled contested (Gommes 2010).
+- Exponent: $n = 1.4$ baseline, $n = 1.2$ sensitivity (Romanelli 2013).
+- Air phase: isentropic convergent-nozzle flow, choked or subsonic, no
+  fitted parameter. Fischer's empirical efficiency rejected: fitted.
+- No validation against measured apogees; stated as limit 10.
+- Files: `code/rocket.py`, `code/fig_trajectory.py`,
+  `code/fig_apogee_vs_fill.py`, `docs/physics.md`, `docs/figures/`.
+- Correct-model results (commit `6f96f51`): apogee 26.6 m at
+  $f = 0.25$, 2 bar; optimum fill 0.22 to 0.28 ($n = 1.4$, 1 to 5 bar);
+  initial acceleration 22 g vs about 70 g in Barrio-Perotti's model
+  with water inertia.
+- Deliberate error (BRIEF section 8): no physics error found by the main
+  session; the user chose one, absolute pressure $p$ in place of
+  $p - p_a$ in (W2). Commit `db9a551`, labelled `demo:`. Docs numbers and
+  figures regenerated with it. Details in git-ignored
+  `private/demo-error.md`. README states that the error exists, not
+  which one. Fixed in phase 5.
 - Rule added (user): the agent writes an empty `R:` line below every
-  question. An empty `R:` is not an answer. The hook now counts answered
-  and empty `R:` lines apart, so the count stays meaningful.
-- Model results: apogee 26.6 m at $f = 0.25$, 2 bar. Optimum fill 0.22
-  to 0.30 over 1 to 5 bar, in the range of the Barrio-Perotti 2010
-  range optimum (0.5 to 0.6 L). Initial acceleration 22 g against about
-  70 g in the Barrio-Perotti model with water inertia: the largest
-  known gap, listed as limit 1 in `docs/physics.md`.
-- Demo error: none identified by the main session. BRIEF section 8:
-  the user introduces one in a labelled commit. Asked in `live.md`.
+  question; an empty `R:` is not an answer. The hook counts answered and
+  empty `R:` lines apart.
+- Phase 2 approved by the user, tag `phase-2-physics`.
 
 Method: the user's answer said "after each answer" for "below each
 question". The agent applied the reading that fits the `R:` convention
@@ -146,3 +156,6 @@ Method: a number written in the draft from the figure (flat optimum,
 "0.20 to 0.35") was wrong; recomputing it from the sweep gave 0.17 to
 0.38. Numbers in `docs/` are taken from script output, not read off
 plots.
+Method: the deliberate error was propagated through the results, so the
+document is self-consistent and the referee must find it from physics
+(limits, consistency), not from a mismatch between equation and numbers.
