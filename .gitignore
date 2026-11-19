@@ -1,0 +1,24 @@
+# Python environment and caches. The environment is rebuilt from
+# pyproject.toml and uv.lock with `uv sync`.
+.venv/
+__pycache__/
+*.pyc
+
+# Local Claude Code settings: machine-specific (e.g. the path of the
+# virtual environment outside the OneDrive-synced folder).
+.claude/settings.local.json
+
+# Private notes that must never enter the history, not even in a commit
+# that is later reverted (e.g. the note on a physics error kept for the
+# live check of phase 3). Removing a committed file does not remove it
+# from the history; ignoring the folder does.
+private/
+
+# Obsidian vault configuration: belongs to the reader's editor, not to
+# the project. live.md and the journal are plain Markdown.
+.obsidian/
+
+# OneDrive and operating-system files.
+Thumbs.db
+desktop.ini
+*-safeBackup-*
