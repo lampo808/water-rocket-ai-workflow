@@ -1,0 +1,25 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"$CLAUDE_PROJECT_DIR/.claude/hooks/live-reminder.sh\""
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:doi.org)",
+      "WebFetch(domain:api.crossref.org)",
+      "WebFetch(domain:api.openalex.org)",
+      "WebFetch(domain:arxiv.org)",
+      "Bash(uv run:*)",
+      "Bash(uv sync:*)"
+    ]
+  }
+}
