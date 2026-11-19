@@ -9,7 +9,8 @@ Resume:
 - Phase: 1 (literature). Repository `water-rocket-ai-workflow`, branch `main`.
 - State: phase 0 closed, tag `phase-0-setup`.
 - Done: phase 0 (rules, journal, agents, hook, README skeleton, prompts).
-- Next step: run lit-scout (output in `sources/`), read its report and
+- In progress: lit-scout running (prompt in `prompts/phase-1.md`).
+- Next step: read its report and
   notes, summarise them here, ask the user to review the sources.
 - Waiting for the user: nothing yet.
 
