@@ -86,3 +86,29 @@ Method: Claude Code refused to let the agent write `.claude/settings.json`
 (classified as the agent changing its own permissions). The hook and
 the permission list are proposed in `live.md` and created by the user.
 The refusal is a feature of the harness, not of the model.
+
+Review answers (round 2):
+
+- The three agents are committed as generated, without changes. The
+  user's reason: the repository is a demo; in a real project the agents
+  would be tested on a sample task and tuned before or during the work.
+- `.claude/settings.json` created by the user with the proposed content.
+  The hook fired at the next prompt (reported 6 `R:` lines).
+- `.claude/settings.local.json` created by the user; the placeholder path
+  was replaced with the real one by the agent.
+- PDF rule confirmed: download only with a redistributable licence.
+- Every question and its `R:` answer is copied verbatim to
+  `prompts/phase-N.md` before removal from `live.md` (rule in `AGENTS.md`
+  section 3). The 13 round-1 questions were added retroactively.
+- `live.md` opens with a resume block kept current at every turn. Test:
+  "read live.md" in a new session, with any harness, restores the context
+  (rule in `AGENTS.md` section 3).
+
+Method: agent definitions generated from the brief were accepted without
+a test run. Open for `method/limits.md`: the first real test of each
+agent is its phase.
+Method: removing answered questions from `live.md` loses the exchange
+unless it is archived. Archiving question and answer verbatim in
+`prompts/phase-N.md` keeps `live.md` short and the exchange readable.
+Method: a free `R:` line not attached to a question works as a note from
+the user. It was used to add a rule (the resume block).
