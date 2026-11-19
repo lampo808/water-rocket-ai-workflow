@@ -22,3 +22,7 @@ references.bib and an empty pdf/ folder: read sources/README.md first.
 Target 8 to 15 sources. Return the final report described in your
 instructions.
 ```
+
+Result: 13 notes in `sources/`, 13 BibTeX entries, 1 PDF
+(`qi2026research`, CC BY 4.0). The main session re-checked the 10 DOIs
+on Crossref. 5 review questions in `live.md`.

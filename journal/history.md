@@ -77,3 +77,18 @@ Method: a free `R:` line not attached to a question works as a note from
 the user. It was used to add a rule (the resume block).
 Method: the resume test passed. A new session started with the prompt
 "read live.md" restored the context and continued.
+
+## Phase 1 (literature), 2026-11-19, session 2
+
+- lit-scout run once (prompt in `prompts/phase-1.md`): 13 sources, all
+  identity-verified; 6 read in full, 7 abstract or metadata only. One PDF
+  downloaded (`qi2026research`, CC BY 4.0).
+- Main session re-checked the 10 DOIs on Crossref: all match. The
+  agent's notes on content were not re-read in full; source-auditor
+  checks content in phase 4.
+- Open: thrust curves vs time (topic 6) not available in full text;
+  optimum fill for vertical apogee not measured in any source read.
+
+Method: the main session checks agent output that is cheap to check
+(DOIs on Crossref, PDF type) before presenting it. Content checks are
+left to the agent of phase 4.
