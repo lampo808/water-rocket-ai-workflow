@@ -250,27 +250,26 @@ Method: most proposals in this repository were accepted with `R: ok`.
 This measures the time available, not the quality of the proposals. The
 `R:` channel supports nuanced answers; this run used little of it.
 
-## Phase 6 (method), 2026-11-19, session 4
+## Phase 6 (method), 2026-11-19 and 2026-11-22, sessions 4 and 5 (compacted)
+
+Main session only. One review round in `live.md`; question and answer
+archived in `prompts/phase-6.md`.
+
+Decisions in force:
 
 - `method/` written: `README.md`, `working-files.md`, `agents.md`,
   `project-layout.md`, `starting-a-project.md`, `limits.md`. Sources:
   `Method:` lines, final files, `git log`, `prompts/`.
-- Numbers in `method/` computed from the repository: 40 `R:` answers
+- Numbers in `method/` computed from the repository: 41 `R:` answers
   archived, 17 of 20 plain `ok` in phases 1 to 5; journal 122 to 79
   lines at the phase-0 compaction, no reduction at later ones.
 - Fast-forward notice in `README.md` (section Phases) and
-  `method/limits.md`.
-- Own inferences in `method/` labelled: "For the next project" in
+  `method/limits.md`, in the user's first person.
+- Own inference labelled: "For the next project" in
   `starting-a-project.md` marked "Not tried yet".
+- Phase 6 approved by the user (`R: ok`), tag `phase-6-method`. The
+  project is complete.
 
 Method: later compactions did not shrink the journal. Entries written
 in compact form from the start leave little to compact; the step is
 still useful as the moment to drop dead ends and add the approval.
-
-## Phase 6 (method), 2026-11-22, session 5
-
-- Q1 (phase-6 review) answered `R: ok`: fast-forward notice,
-  "For the next project" and template brief accepted as written.
-  Archived in `prompts/phase-6.md`.
-- `method/README.md`, "This run in numbers": updated to 5 sessions and
-  41 `R:` answers, phase-6 approval date added.

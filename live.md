@@ -6,13 +6,9 @@ then continue from `Resume` below. Answer lines start with `R:`.
 ## Current task
 
 Resume:
-- Phase: 6 (method), approved. Repository `water-rocket-ai-workflow`,
-  branch `main`.
-- Done: Q1 answered `R: ok`, archived in `prompts/phase-6.md`; journal
-  entry written; `method/README.md` numbers updated (5 sessions, 41
-  `R:` answers).
-- Next step: commit `journal: compact phase 6`, tag `phase-6-method`.
-  The project is then complete.
+- Project complete. Phase 6 (method) approved. Repository
+  `water-rocket-ai-workflow`, branch `main`, last tag `phase-6-method`.
+- Nothing waits for the user. Pushing is left to the user.
 - Talk: 2026-11-23.
 
 ## Open questions
