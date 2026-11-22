@@ -39,8 +39,11 @@ top of `live.md` and the journal restore the context.
 
 ## This run in numbers
 
-- One day (2026-11-19): `BRIEF.md` committed at 11:12, tag
-  `phase-4-source-audit` at 13:04, `phase-5-revision` at 21:13.
-- 4 sessions, 7 phases (0 to 6), one tag per phase.
-- 40 `R:` answers archived in `prompts/`. In phases 1 to 5, 17 of 20
-  were a plain `ok`. See [limits.md](limits.md) for what that means.
+- Phases 0 to 5 in one day (2026-11-19): `BRIEF.md` committed at 11:12, tag
+  `phase-4-source-audit` at 13:04, `phase-5-revision` at 21:13. `method/`
+  written the same evening.
+- Phase 6 approved on 2026-11-22, in a fifth session.
+- 5 sessions, 7 phases (0 to 6), one tag per phase.
+- 41 `R:` answers archived in `prompts/`, the last one closing phase 6.
+  In phases 1 to 5, 17 of 20 were a plain `ok`. See
+  [limits.md](limits.md) for what that means.

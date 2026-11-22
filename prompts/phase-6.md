@@ -15,3 +15,15 @@ Result: `method/` (six files), link from `README.md` to
 `method/README.md`, fast-forward notice in `README.md` and
 `method/limits.md`, "(to be written)" markers removed. Review question
 in `live.md`.
+
+### Questions and answers, round 1
+
+**Q1. Phase 6 review.** Read `method/` (start from
+`method/README.md`) and the top of `README.md`. Check in particular:
+(a) the fast-forward notice (`README.md`, section Phases, and
+`method/limits.md`, first section), written in first person as yours;
+(b) "For the next project" in `method/starting-a-project.md`, my
+inference of what you would reuse, marked "Not tried yet";
+(c) the template brief in the same file. Proposal: `R: ok` closes
+phase 6 and the project.
+R: ok

@@ -266,3 +266,11 @@ This measures the time available, not the quality of the proposals. The
 Method: later compactions did not shrink the journal. Entries written
 in compact form from the start leave little to compact; the step is
 still useful as the moment to drop dead ends and add the approval.
+
+## Phase 6 (method), 2026-11-22, session 5
+
+- Q1 (phase-6 review) answered `R: ok`: fast-forward notice,
+  "For the next project" and template brief accepted as written.
+  Archived in `prompts/phase-6.md`.
+- `method/README.md`, "This run in numbers": updated to 5 sessions and
+  41 `R:` answers, phase-6 approval date added.
