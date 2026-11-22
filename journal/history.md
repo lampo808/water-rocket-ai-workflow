@@ -273,3 +273,8 @@ Decisions in force:
 Method: later compactions did not shrink the journal. Entries written
 in compact form from the start leave little to compact; the step is
 still useful as the moment to drop dead ends and add the approval.
+
+## After phase 6, 2026-11-22, session 5
+
+- GitHub remote: `https://github.com/lampo808/water-rocket-ai-workflow.git`,
+  added by the user. Clone URL in `README.md` set to it.

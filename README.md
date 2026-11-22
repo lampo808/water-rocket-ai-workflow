@@ -37,7 +37,7 @@ sent to the model provider, unless a locally hosted model is used.
   rendered LaTeX and images.
 
 ```sh
-git clone <repository-url>
+git clone https://github.com/lampo808/water-rocket-ai-workflow.git
 cd water-rocket-ai-workflow
 uv sync
 ```
